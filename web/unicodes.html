@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Unicode</title>
+		<style>
+			em a {
+				color: inherit;
+				text-decoration: inherit;
+			}
+
+			#t {
+				border-collapse: collapse;
+			}
+
+			#t td, #t th {
+				border: 1px solid;
+				padding: 8px;
+			}
+
+			#t tr > :first-child {
+				text-transform: uppercase;
+				text-align: right;
+				border-right-width: 2px;
+			}
+			#t th {
+				text-align: center !important;
+				text-transform: uppercase;
+				border-bottom-width: 2px;
+			}
+			#t em {
+				font-style: normal;
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<table id="t">
+			<tr><th>Feature</th><th>ASCII</th><th colspan=2>Unicode Variant</th></tr>
+			<tr>
+				<td>Ligatures</td>
+				<td>I have 11 fingers.</td>
+				<td>I have 11 <em>ﬁ</em>ngers.</td>
+				<td><a href="http://unicode-table.com/en/blocks/alphabetic-presentation-forms/">Block</a></td>
+			</tr>
+			<tr>
+				<td>Roman Numerals</td>
+				<td>IV is one less than V, and one more than III.</td>
+				<td><em>Ⅳ</em> is one less than <em>Ⅴ</em>, and one more than <em>Ⅲ</em>.</td>
+				<td><a href="http://unicode-table.com/en/blocks/number-forms/">Block</a>, <a href="http://unicode-table.com/en/sets/Roman-numerals/">Set</a></td>
+			</tr>
+			<tr>
+				<td>Quotation marks</td>
+				<td>"I like 'Star Wars,'" said Martin.</td>
+				<td><em>“</em>I like <em>‘</em>Star Wars,<em>’</em><em>”</em> said Martin.</td>
+		</table>
+		<script>
+			var t = document.getElementById("t");
+			var ems = t.getElementsByTagName("em");
+			for(var i = 0; i < ems.length; i++) {
+				if(ems[i].innerHTML.length == 1) {
+					var anchor = document.createElement("a");
+					anchor.appendChild(ems[i].removeChild(ems[i].firstChild));
+					anchor.href = "http://unicode-table.com/en/" + anchor.innerHTML.codePointAt(0).toString(16);
+					ems[i].appendChild(anchor);
+				}
+			}
+		</script>
+	</body>
+</html>

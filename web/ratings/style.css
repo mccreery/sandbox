@@ -1,0 +1,36 @@
+.count {
+	margin-left: 5px;
+	line-height: 18px;
+	font-family: arial, sans-serif;
+	font-size: 10px;
+	color: #AAA;
+}
+.count:hover {color: #888}
+
+.rating {
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	width: 90px;
+	height: 18px;
+	background: url(star.svg);
+	vertical-align: bottom;
+}
+.rating::after {
+	content: "";
+	position: absolute;
+	height: 18px;
+	background: url(star.svg) 0 -18px;
+}
+.rating.set::after, .rating:hover::after {background-position: 0 -36px}
+.rating._0::after {width: 0}
+.rating._0-5::after {width: 9px}
+.rating._1::after {width: 18px}
+.rating._1-5::after {width: 27px}
+.rating._2::after {width: 36px}
+.rating._2-5::after {width: 45px}
+.rating._3::after {width: 54px}
+.rating._3-5::after {width: 63px}
+.rating._4::after {width: 72px}
+.rating._4-5::after {width: 81px}
+.rating._5::after {width: 90px}

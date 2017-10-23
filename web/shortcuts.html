@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: sans-serif;}
+
+kbd {white-space: nowrap;}
+kbd > kbd, kbd.single {
+color: white; background: #555; border-radius: 2px; padding: 2px 8px; box-shadow: 0 -2px 0 black inset;}
+kbd > kbd:not(:first-child) {margin-left: 4px;}
+kbd > kbd:not(:last-child) {margin-right: 4px;}
+kbd.shift:before {content: "⇧"; margin-right: 4px;}
+kbd.alt:before {content: "⎇"; margin-right: 4px;}
+
+kbd.space > span {display: none}
+kbd.space:before {content: "␣"; margin: 0 24px}
+
+kbd.menu > kbd, kbd.menu.single {
+background: #eee;
+box-shadow: none;
+border-radius: 0;
+border: 1px solid #aaa;
+color: #222;
+font-family: arial;
+}
+
+kbd.menu > kbd:not(:last-child):after {
+font-family: FontAwesome;
+content: "\f105";
+margin-left: 16px;
+}
+
+kbd.menu > kbd {margin: 0;}
+kbd.menu > kbd:not(:last-child) {border-right: none}
+kbd.menu > kbd:last-child, kbd.menu.single {
+background: #b5d3dd;
+border: 1px solid #85a3ad;
+}
+
+kbd.menu > kbd.radio:before {
+font-family: FontAwesome;
+content: "\f111";
+margin-right: 8px;
+font-size: 50%;
+vertical-align: middle;
+}
+
+</style>
+
+<p id=a>
+Hit <kbd><kbd>Ctrl</kbd>+<kbd>End</kbd></kbd> to reach the end of the document. Hitting just <kbd class=single>End</kbd> will move to the end of the line. <kbd><kbd>Ctrl</kbd>+<kbd class=shift>Shift</kbd>+<kbd>End</kbd></kbd> goes a step further and selects to the end of the document. The <kbd class="single alt">Alt</kbd> key has no effect in tandem with these shortcuts.
+</p>
+<p><kbd><kbd>Ctrl</kbd>+<kbd class=space title=Space><span>Space</span></kbd></kbd>, <kbd><kbd>Ctrl</kbd>+<kbd class=shift>Shift</kbd>+<kbd>&rarr;</kbd></kbd></p>
+<p>
+Enable viewing whitespace using <kbd class=menu><kbd><u>V</u>iew</kbd><kbd>Symbol</kbd><kbd><u>W</u>hitespace</kbd></kbd>
+<kbd class=menu><kbd><u>F</u>ile</kbd><kbd>Save As...</kbd></kbd><br>
+<kbd class=menu><kbd>Set Delay</kbd><kbd class=radio>1 minute</kbd></kbd>
+</p>

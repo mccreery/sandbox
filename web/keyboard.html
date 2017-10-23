@@ -1,0 +1,57 @@
+<!DOCTYPE html><title>Keyboard</title><meta charset="UTF-8"><style>body{text-align:center}pre{margin-top:100px;text-align:left;display:inline-block;font-family:consolas,monospace;font-size:12px}</style><pre id="board"> _____     ____ ____ ____ ____     ____ ____ ____ ____     ____ ____ ____ ____   ____ ____ ____
+||Esc||   ||F1|||F2|||F3|||F4||   ||F5|||F6|||F7|||F8||   ||F9|||F10||F11||F12| ||Ins||Scr||Prt|        []   []   []
+|/___\|   |/__\|/__\|/__\|/__\|   |/__\|/__\|/__\|/__\|   |/__\|/__\|/__\|/__\| |/__\|/__\|/__\|
+ _____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ___________   ____ ____ ____   ____ ____ ____ ____
+||¬  |||! |||" |||£ |||$ |||% |||^ |||& |||* |||( |||) |||_ |||+ |||      &lt;x]|| ||Del||Hom||Pg|| ||Num||/ |||* |||- ||
+||`_||||1_|||2_|||3_|||4_|||5_|||6_|||7_|||8_|||9_|||0_|||-_|||=_|||_________|| ||  |||__|||Up|| ||Lk|||__|||__|||__||
+|/___\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/_________\| ||  ||/__\|/__\| |/__\|/__\|/__\|/__\|
+|||<-   |||Q |||W |||E |||R |||T |||Y |||U |||I |||O |||P |||{ |||} |||   <-'|| ||  |||End||Pg|| ||7 |||8 |||9 |||+ ||
+||->|___|||__|||__|||__|||__|||__|||__|||__|||__|||__|||__|||[ |||] |||__    || ||__|||__|||Dn|| ||Hom||^_|||PgU||  ||
+|/______\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__|   || |/__\|/__\|/__\| |/__\|/__\|/__\||  ||
+||Caps Lock|||A |||S |||D |||F |||G |||H |||J |||K |||L |||: |||@ |||~ |||   ||                  ||4 |||5 |||6 |||  ||
+||[A]______|||__|||__|||__|||__|||__|||__|||__|||__|||__|||;_|||'_|||#_|||___||                  ||<_|||__|||>_|||__||
+|/_________\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/___\|       ____       |/__\|/__\|/__\|/__\|
+||^ Shift|||| |||Z |||X |||C |||V |||B |||N |||M |||< |||> |||? |||^ Shift   ||      ||^ ||      ||1 |||2 |||3 |||Ent|
+||_______|||\_|||__|||__|||__|||__|||__|||__|||__|||,_|||._|||/_|||__________||      ||__||      ||End||V_|||PgD||  ||
+|/_______\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__________\|  ____|/__\|____  |/__\|/__\|/__\||  ||
+||Ctrl |||[][]|||Alt |||                                |||Alt |||Fn  |||Ctrl|| ||< |||V |||> || ||0      |||. |||  ||
+||_____|||[][]|||____|||________________________________|||Gr__|||____|||____|| ||__|||__|||__|| ||Ins____|||Del||__||
+|/_____\|/____\|/____\|/________________________________\|/____\|/____\|/____\| |/__\|/__\|/__\| |/_______\|/__\|/__\|</pre><script>
+	var Key = function(template, indices, chars) {
+		this.template = template;
+		this.indices = indices;
+		this.chars = chars;
+	}
+	var middleKey = {keyup: ["|# |", "|__|", "/__\\"], keydown: ["____", "|# |", "|__|"]};
+
+	var el = document.getElementById("board");
+	var board = new Array(256);
+
+	var qw = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
+	for(var i = 0; i < qw.length; i++) {
+		board[qw[i].charCodeAt(0)] = new Key(middleKey, [805 + 5*i, 930 + 5*i, 1049 + 5*i], [qw[i]]);
+	}
+	var as = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
+	for(var i = 0; i < as.length; i++) {
+		board[as[i].charCodeAt(0)] = new Key(middleKey, [1171 + 5*i, 1290 + 5*i, 1415 + 5*i], [as[i]]);
+	}
+
+	document.onkeydown = document.onkeyup = function(e) {
+		if(board[e.keyCode] != undefined) {
+			var key = board[e.keyCode];
+			for(var i = 0; i < key.indices.length; i++) {
+				var formatted = key.template[e.type][i];
+				key.chars.forEach(function(x) {
+					formatted = formatted.replace('#', x);
+				});
+				el.innerHTML = el.innerHTML.substring(0, key.indices[i])
+					+ formatted
+					+ el.innerHTML.substring(key.indices[i] + key.template[e.type][i].length);
+			}
+		}
+	}
+
+	document.onkeypress = function() {
+		new Audio("key.mp3").play();
+	};
+</script>

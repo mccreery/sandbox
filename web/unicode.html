@@ -1,0 +1,107 @@
+<meta charset="UTF-8">
+<title>Unicode Table</title>
+<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTM0A1t6AAAA8UlEQVQ4T63QsUpCYRjG8VNgVA5SF9AF5B7dQUPQJDQ3CNXkpO62ew3q1NQNuAvtuiW66dAQNYSo9X++fOBDDTzWA78D73PO98L5kv9IdaEYpp/sw30Ju4jjdxUNc3yhp2GRI6izGzg7mEH9VMUmC0bIQdlqgdThNNFCQ8OmCyY4hZL6DqyN1L/wis9oLiDVAvUP0TyAz/y64Bg+oP4A/aizsEAPDW/IqiBn8EddFeQS7iws6ETFM2oYRt0jnCe4l7DgAr6UZe/IwznBB/w+LFB0s2PEh19wjuWUsbJAOcQ17nGFPaxLBrfQd3cq/pAk+QalN4dPyuGpRQAAAABJRU5ErkJggg==">
+<style>
+#outer {display:inline-block;text-align:center}
+#page{box-sizing:border-box;position:relative;border-collapse:collapse;margin:5px 0}
+td{cursor:pointer;border:1px solid;width:1.5em;max-width:1.5em;line-height:1.5em;text-align:center}
+#prev,#next{padding:0 32px}
+#prev{float:left}
+#next{float:right}
+#custom{width:5em}
+</style>
+<body>
+<div id="outer">
+Jump to page <input id="custom" type="number" value="0" min="0"> <button id="jump">Jump</button> or block <select id="block"></select>
+<table id="page"></table>
+<button id="prev" disabled>Prev</button>
+Page <span id="index">1</span>
+<button id="next">Next</button>
+</div>
+<span style="font-size:20em" id="large"></span>
+</body>
+<script>
+	var p = 0;
+	const table  = document.getElementById("page");
+	const index  = document.getElementById("index");
+	const prev   = document.getElementById("prev");
+	const custom = document.getElementById("custom");
+	const block = document.getElementById("block");
+
+	const blockKeys = [0x00, 0x80, 0x100, 0x180, 0x1F600];
+	const blockValues = ["Basic Latin", "Latin-1 Supplement", "Latin Extended-A", "Latin Extended-B", "Emoticons"];
+
+	for(var i = 0; i < blockKeys.length; i++) {
+		var option = document.createElement("option");
+		option.value = blockKeys[i];
+		option.innerHTML = blockValues[i];
+		block.appendChild(option);
+	}
+
+	function addBorder(row, code) {
+		for(var i = 0; i < blockKeys.length; i++) {
+			if(blockKeys[i] == code) {
+				row.style.borderTop = "2px solid";
+				return;
+			}
+		}
+		row.style.borderTop = "";
+	}
+
+	function populateTable(page) {
+		prev.disabled = page <= 0;
+		custom.value = page;
+		custom.onchange();
+
+		var hex = page.toString(16).toUpperCase();
+		if((hex.length & 1) == 1) hex = "0" + hex;
+		index.innerHTML = page + " (U+" + hex + "00 to U+" + hex + "FF)";
+
+		var i = (page << 8) >>> 0;
+
+		var create = table.childNodes.length == 0;
+
+		for(var y = 0; y < 16; y++) {
+			var row = create ?
+				document.createElement("tr") : table.childNodes[y];
+
+			addBorder(row, i);
+
+			for(var x = 0; x < 16; x++, i++) {
+				var cell = create ?
+					document.createElement("td") : row.childNodes[x];
+				cell.innerHTML = String.fromCodePoint(i);
+				cell.onclick = function() {document.getElementById("large").innerHTML = this.innerHTML}
+				if(create) row.appendChild(cell);
+			}
+			if(create) table.appendChild(row);
+		}
+	}
+
+	custom.onchange = function() {
+		var i = (this.value << 8) >>> 0;
+		if((block.value & 0xFF00) == i) return;
+
+		for(var j = blockKeys.length - 1; j >= 0; j--) {
+			if(i >= blockKeys[j]) {
+				block.value = blockKeys[j];
+				break;
+			}
+		}
+	};
+
+	block.onchange = function() {
+		populateTable(p = (this.value >> 8) >>> 0);
+	};
+	var closing = true;
+	block.onclick = function() {
+		if(closing = !closing) this.onchange();
+	}
+	document.getElementById("prev").onclick = function() {populateTable(--p);};
+	document.getElementById("next").onclick = function() {populateTable(++p);};
+	document.getElementById("jump").onclick = function() {
+		populateTable(p = custom.value | 0);
+	};
+
+	populateTable(p);
+</script>

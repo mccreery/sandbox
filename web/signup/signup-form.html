@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#central {
+				width: 300px;
+				margin: 100px auto 0;
+				font-family: arial, sans-serif;
+				font-size: 15px;
+			}
+
+			#central input {
+				display: block;
+				width: 100%;
+				margin: 0 0 8px;
+				box-sizing: border-box;
+			}
+			#central input.left, #central input.right {
+				display: inline;
+				width: 146px;
+			}
+			#central input.right {
+				float: right;
+			}
+
+			#central label {
+				display: block;
+			}
+
+			#central label[for=password] {
+				display: inline;
+			}
+			#central #len-check {
+				float: right;
+				color: #D00;
+			}
+
+			label.required::after {
+				color: #D00;
+				content: "*";
+			}
+		</style>
+	</head>
+	<body>
+		<div id="central">
+			<form method="get">
+				<label class="required">Name</label>
+				<input type="text" id="forename" name="forename" class="left" placeholder="John"></input>
+				<input type="text" id="surname" name="surname" class="right" placeholder="Smith"></input>
+				<label class="required" for="password">Password</label><span id="len-check"></span><input id="pw1" type="password" name="password" class="labeled"></input>
+				<label class="required" for="repeat">Repeat Password</label><input type="password" name="password-repeat" class="labeled"></input>
+			</form>
+		</div>
+
+		<script>
+			function getPassMessage(pass) {
+				if(pass.length < 8) return (8 - pass.length) + " more";
+				if(["password", "password1", "password123"].indexOf(pass) != -1) return "Too common";
+				return null;
+			}
+
+			(document.getElementById("pw1").oninput = function(e) {
+				var message = getPassMessage(this.value ? this.value : "");
+				document.getElementById("len-check").innerHTML = message ? message : "";
+			})();
+
+			document.getElementById("forename").oninput = document.getElementById("surname").oninput = function(e) {
+				document.getElementById("forename").value = this.value.substring(0, 1).toUpperCase() + this.value.substring(1);
+			};
+		</script>
+	</body>
+</html>

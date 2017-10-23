@@ -1,0 +1,38 @@
+.count {
+	margin-left: 5px;
+	line-height: 18px;
+	font-family: arial, sans-serif;
+	font-size: 10px;
+	color: #AAA;
+}
+.count:hover {color: #888}
+
+.rating {
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	vertical-align: bottom;
+	font-size: 32px;
+}
+.rating::before, .rating::after {
+	content: "🟊🟊🟊🟊🟊";
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: gray;
+	overflow: hidden;
+}
+.rating::after {color: yellow;}
+
+.rating.set::after, .rating:hover::after {color: blue}
+.rating._0::after {width: 0}
+.rating._0-5::after {width: 10%}
+.rating._1::after {width: 20%}
+.rating._1-5::after {width: 30%}
+.rating._2::after {width: 40%}
+.rating._2-5::after {width: 50%}
+.rating._3::after {width: 60%}
+.rating._3-5::after {width: 70%}
+.rating._4::after {width: 80%}
+.rating._4-5::after {width: 90%}
+.rating._5::after {width: 100%}

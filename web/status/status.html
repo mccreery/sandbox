@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Statuses</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+	<span id="sstatus"></span>
+	<script>
+		var el = document.getElementById("sstatus");
+		el.className = "status waiting";
+		setTimeout(function() {
+			$.getJSON("https://srhpyqt94yxb.statuspage.io/api/v2/summary.json",
+			function(json) {
+				el.className = json["components"][0]["status"] == "operational"
+					? "status green" : "status";
+				el.innerHTML = json["components"][0]["status"];
+			});
+		}, 2000);
+	</script>
+	<footer>Icons provided free by <a href="http://emojione.com">EmojiOne</a> <i>(some derivation)</i></footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+#include "resources.h"
+
+IDI_ICON ICON "img/icon.ico"
+
+IDM_MENU MENU
+BEGIN
+	POPUP "&File"
+	BEGIN
+		MENUITEM "Open...", 100
+		MENUITEM "Save", 101
+		MENUITEM "Save As...", 102
+	END
+
+	POPUP "&View"
+	BEGIN
+		MENUITEM "Change Scale...", 200
+	END
+END

@@ -1,0 +1,43 @@
+body {font-family: helvetica, sans-serif}
+.status {
+	display: inline-block;
+	position: relative;
+	min-width: 30px;
+	min-height: 30px;
+	box-sizing: border-box;
+	line-height: 28px;
+	margin: 2px 6px;
+	padding: 0 6px;
+
+	/*background: rgba(238,238,238,.1);*/
+	border: 1px solid #EEE;
+	border-radius: 4px;
+}
+.status:not(:empty) {padding-left: 26px}
+.status:empty::after {content: "\200b"}
+
+.status::before {
+	content: "";
+	position: absolute;
+	top: 6px; left: 6px; width: 16px; height: 16px;
+	background-image: url(statuses.svg);
+}
+.green::before {background-position: -16px 0;}
+.waiting::before {animation: waiting 1s step-end infinite}
+@keyframes waiting {
+	0%  {background-position: -32px 0}
+	50% {background-position: -48px 0}
+}
+
+.status .description {
+	margin: 0 0 0 4px;
+	border-left: 1px solid #DDD;
+	padding: 0 0 0 4px;
+	font-size: 75%;
+	color: #999;
+	line-height: normal;
+}
+footer {
+	margin: 5px 0;
+	text-align: center
+}

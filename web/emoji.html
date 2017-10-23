@@ -1,0 +1,7 @@
+<!DOCTYPE html><meta charset="UTF-8"><title>Emoji</title><style>body{animation:m infinite linear 1s}@keyframes m{to{background-position:32px 32px}}</style>
+<body></body>
+<script>
+var t=decodeURIComponent(window.location.search.substring(1));
+document.title = "Wall of "+t;
+document.body.style.background="url(https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/svg/"+((t.length >= 2 ? (t.charCodeAt(0) - 0xD800) * 0x400 + t.charCodeAt(1) - 0xDC00 + 0x10000 : t)).toString(16)+".svg)0 0/32px#333";
+</script>
