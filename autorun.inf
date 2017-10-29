@@ -1,0 +1,3 @@
+[autorun]
+label=Recycle Bin
+icon=%SystemRoot%\System32\shell32.dll,32
