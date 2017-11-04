@@ -9,8 +9,14 @@ kbd > kbd, kbd.single {
 color: white; background: #555; border-radius: 2px; padding: 2px 8px; box-shadow: 0 -2px 0 black inset;}
 kbd > kbd:not(:first-child) {margin-left: 4px;}
 kbd > kbd:not(:last-child) {margin-right: 4px;}
-kbd.shift:before {content: "⇧"; margin-right: 4px;}
-kbd.alt:before {content: "⎇"; margin-right: 4px;}
+
+kbd:before {margin-right: 4px}
+kbd.shift:before {content: "⇧"}
+kbd.alt:before {content: "⎇"}
+kbd.backspace:before {content: "⌫"}
+kbd.delete:before {content: "⌦"}
+kbd.tab:before {content: "⇥"}
+kbd.enter:before {content: "⏎"}
 
 kbd.space > span {display: none}
 kbd.space:before {content: "␣"; margin: 0 24px}
@@ -56,3 +62,17 @@ Enable viewing whitespace using <kbd class=menu><kbd><u>V</u>iew</kbd><kbd>Symbo
 <kbd class=menu><kbd><u>F</u>ile</kbd><kbd>Save As...</kbd></kbd><br>
 <kbd class=menu><kbd>Set Delay</kbd><kbd class=radio>1 minute</kbd></kbd>
 </p>
+
+<h2>Firefox</h2>
+<kbd class="single tab">Tab</kbd> &mdash; Focus next input<br>
+<kbd><kbd class=shift>Shift</kbd>+<kbd class=tab>Tab</kbd></kbd> &mdash; Focus previous input<br>
+<kbd><kbd>Ctrl</kbd>+<kbd>L</kbd></kbd> or <kbd><kbd class=alt>Alt</kbd>+<kbd>D</kbd></kbd> &mdash; Focus location bar<br>
+<kbd><kbd>Ctrl</kbd>+<kbd>W</kbd></kbd> &mdash; Close tab<br>
+<kbd><kbd>Ctrl</kbd>+<kbd>T</kbd></kbd> &mdash; Open new tab<br>
+<kbd><kbd>Ctrl</kbd>+<kbd>N</kbd></kbd> &mdash; Open new window<br>
+<kbd><kbd>Ctrl</kbd>+<kbd>B</kbd></kbd> &mdash; Toggle bookmarks<br>
+<kbd><kbd>Ctrl</kbd>+<kbd class=shift>Shift</kbd>+<kbd>B</kbd></kbd> &mdash; Open bookmarks in new window<br>
+<kbd class="single backspace">Backspace</kbd> &mdash; Previous page<br>
+<kbd class="single tab">Tab</kbd> &mdash; Next tab<br>
+<kbd><kbd class=shift>Shift</kbd>+<kbd class=tab>Tab</kbd></kbd> &mdash; Previous tab<br>
+<kbd class="single enter">Enter</kbd> &mdash; Submit form<br>
