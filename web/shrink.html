@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>bl.it</title>
+		<meta charset="UTF-8">
+		<style>
+			body {
+				background: #123;
+			}
+
+			#wrapper {
+				position: absolute;
+				top: 30%;
+				left: 50%;
+				width: 300px;
+				margin-left: -150px;
+			}
+
+			#shorten {
+				width: 100%;
+				padding: 0 48px 0 24px;
+				background: #234;
+				border-radius: 24px;
+				height: 48px;
+				box-sizing: border-box;
+				border: none;
+				color: rgba(255,255,255,.8);
+				box-shadow: 0 0 16px rgba(0,0,0,.2);
+			}
+
+			#submit {
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 48px;
+				height: 48px;
+				border: none;
+				background: #E84 url(shrink.svg) no-repeat 16px 16px;
+				border-radius: 24px;
+			}
+
+			#submit:hover {
+				background-color: #F95;
+			}
+
+			#submit.loading {
+				animation: roll 2s forwards;
+			}
+			#shorten.loading {
+				animation: shrink 2s forwards;
+			}
+			
+			@keyframes shrink {
+				from {}
+				to {
+					width: 48px;
+					margin-left: 126px;
+					padding-right: 0;
+				}
+			}
+			@keyframes roll {
+				from {transform: rotate(0deg);}
+				to {
+					transform: rotate(-360deg);
+					right: 126px;
+					background-position: -32px 16px;
+				}
+			}
+		</style>
+		<script>
+			function beginLoad(obj) {
+				obj.className = "loading";
+				document.getElementById("shorten").className = "loading";
+			}
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<input type="text" id="shorten" placeholder="Paste your long URL">
+			<input type="submit" id="submit" value="" onclick="beginLoad(this)">
+		</div>
+	</body>
+</html>

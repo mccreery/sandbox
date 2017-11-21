@@ -1,0 +1,59 @@
+<svg viewBox="-6 -6 24 12" height="100%">
+<circle r="2" opacity=".1"/>
+
+<circle r="2" cx="9" cy="2.5" opacity=".1"/>
+<text text-anchor="middle" x="9" y="2.5" dy=".35em" fill="#CCC" font-size="3px" font-family="arial">B</text>
+<circle r="2" cx="12" cy="-2.5" opacity=".1"/>
+<text text-anchor="middle" x="12" y="-2.5" dy=".35em" fill="#CCC" font-size="3px" font-family="arial">A</text>
+
+<defs>
+<g id="poo">
+<path opacity=".1" id="right"/>
+<path fill="none" stroke="#CCC" stroke-width=".3" d="M3.5,-.75 l .75,.75 -.75,.75"/>
+</g>
+</defs>
+<use xlink:href="#poo"/>
+<use xlink:href="#poo" transform="rotate(90)"/>
+<use xlink:href="#poo" transform="rotate(180)"/>
+<use xlink:href="#poo" transform="rotate(270)"/>
+<path fill="none" stroke="#CCC" d="M-1,0v.5h2v-.5" stroke-width=".3"/>
+</svg>
+
+<script>
+function sind(theta) {return Math.sin(theta * (Math.PI / 180));}
+function cosd(theta) {return Math.cos(theta * (Math.PI / 180));}
+
+var theta = 40;
+var k = 2.5 * (Math.sqrt(2) - 1) * 4 * theta / 270;
+var s = sind(theta), c = cosd(theta);
+
+var points = [
+"M", [2.5, 0],
+
+"C", [2.5, k],
+" ", [k*s + 2.5*c, -k*c + 2.5*s],
+" ", [2.5*c, 2.5*s],
+"L", [4.5, 2.5*s],
+"C", [5, 2.5*s],
+" ", [5.5, 1],
+
+" ", [5.5, 0],
+
+" ", [5.5, -1],
+" ", [5, -2.5*s],
+" ", [4.5, -2.5*s],
+"L", [2.5*c, -2.5*s],
+"C", [k*s + 2.5*c, k*c - 2.5*s],
+" ", [2.5, -k],
+" ", [2.5, 0]
+];
+function f(x) {return points[x][0] + "," + points[x][1];}
+
+var s = "";
+for(var i = 0; i < points.length; i += 2) {
+s += points[i];
+s += f(i + 1);
+}
+
+document.getElementById("right").setAttribute("d", s);
+</script>

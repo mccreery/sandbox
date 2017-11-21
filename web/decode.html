@@ -1,0 +1,135 @@
+<style>
+	body {background: #F5F5F5}
+
+	#center-wrap {
+		position: relative;
+		width: 500px;
+		margin: 40px auto 0;
+		padding: 10px 10px 20px;
+		background: #FFF;
+		border-radius: 2px;
+		box-shadow: 0 1px 4px rgba(0,0,0,.2), 0 4px 0 #4AF inset;
+	}
+
+	#in, #out {
+		display: inline-block;
+		resize: none;
+		width: 245px;
+		height: 100%;
+		box-sizing: border-box;
+		padding: 8px;
+		font-family: arial, sans-serif;
+
+		border: 1px solid #EEE;
+		border-top: 1px solid #AAA;
+	}
+	#out {float: right}
+
+	#drag {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 20px;
+		cursor: ns-resize;
+	}
+	#drag::after {
+		content: "";
+		position: absolute;
+		left: 50%;
+		bottom: 8px;
+		width: 40px;
+		margin-left: -20px;
+		height: 1px;
+		background: #777;
+	}
+
+	#movemask {
+		display: none;
+		position: fixed;
+		top: 0; left: 0;
+		width: 100%;
+		height: 100%;
+		margin: 0; padding: 0;
+		cursor: ns-resize;
+	}
+
+	@keyframes load {
+		0%   {stroke-dasharray: 0 0 0 8px;}
+		50%  {stroke-dasharray: 0 0 6.283px 8px;}
+		100% {stroke-dasharray: 0 6.283px 6.283px 8px;}
+	}
+	#loading {
+		position: absolute;
+		bottom: 30px;
+		right: 20px;
+		transition: opacity 1s;
+	}
+	#loading circle {
+		animation: load 1s infinite linear;
+	}
+</style>
+
+<div id="center-wrap" style="height: 200px">
+	<textarea id="in"></textarea>
+	<textarea id="out"></textarea>
+	<div id="drag"></div>
+
+	<svg id="loading" style="opacity: 0" width="20" height="20" viewBox="-1 -1 2 2">
+		<circle r=".9" fill="none" stroke="black" opacity=".2" stroke-width=".2"/>
+	</svg>
+</div>
+<div id="movemask"></div>
+
+<script>
+	function decode(msg) {
+		return getBase(msg);
+	}
+
+	function verifyDigit(c, base) {
+		switch(base) {
+			case 2: return c == "0" || c == "1";
+			case 10: return c >= "0" && c <= "9";
+			default: return c >= "0" && c <= "9" || c >= "A" && c <= "F" || c >= "a" && c <= "f";
+		}
+	}
+
+	function getBase(msg) {
+		var i;
+		for(i = 0; i < msg.length && verifyDigit(msg.charAt(i), 2); i++);
+		if(i == msg.length) return "Binary";
+		for(i = 0; i < msg.length && verifyDigit(msg.charAt(i), 10); i++);
+		if(i == msg.length) return "Decimal";
+		for(i = 0; i < msg.length && verifyDigit(msg.charAt(i), 16); i++);
+		if(i == msg.length) return "Hexidecimal";
+		return "Nothing";
+	}
+
+	function load() {
+		var load = document.getElementById("loading");
+
+		load.style.opacity = "1";
+		var decoded = decode(document.getElementById("in").value);
+		document.getElementById("out").value = decoded ? decoded : "";
+		load.style.opacity = "0";
+	}
+	document.getElementById("in").oninput = load;
+
+	var press=false,box=document.getElementById("center-wrap"),drag=document.getElementById("drag"),movemask=document.getElementById("movemask");
+
+	drag.onmousedown = function(e) {
+		var y = e.pageY - this.offsetTop;
+		if(press = e.which == 1) {
+			movemask.style.display = "block";
+		}
+	};
+	movemask.onmousemove = function(e) {
+		if(press) {
+			box.style.height = e.pageY - (box.offsetTop - box.scrollTop + box.clientTop) - 20;
+		}
+	};
+	movemask.onmouseup = function(e) {
+		press = false;
+		movemask.style.display = "";
+	}
+</script>

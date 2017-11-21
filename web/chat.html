@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<style>
+			body {
+				position: absolute;
+				margin: 0;
+				left: 0; top: 0; right: 0; bottom: 0;
+
+				background: #444;
+				display: flex;
+				flex-direction: column;
+
+				font-family: arial, sans-serif;
+			}
+
+			#messages {
+				flex-grow: 1;
+
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				flex-wrap: nowrap;
+				overflow-y: auto;
+			}
+			#messages > span {
+				flex: 0 0 auto;
+				display: block;
+				color: white;
+				border-top: 1px solid #333;
+				padding: 16px 0;
+				margin: 0 16px;
+			}
+
+			#messages > .system {
+				color: #BBB;
+				text-align: center;
+				border: none;
+				padding: 4px 0;
+			}
+
+			#footer {
+				height: 32px;
+				background: rgba(0,0,0,.3);
+				padding: 8px;
+			}
+
+			#bar {
+				position: relative;
+				display: flex;
+				flex-direction: row-reverse;
+				justify-content: flex-start;
+				width: 100%;
+				height: 100%;
+				align-items: center;
+			}
+
+			#message {
+				position: absolute;
+				color: white;
+				width: 100%;
+				line-height: 32px;
+				text-shadow: 0 1px 0 rgba(0,0,0,.3);
+				border: none;
+				border-radius: 16px;
+				background: rgba(0,0,0,0.3);
+				padding: 0 16px;
+				box-sizing: border-box;
+			}
+
+			#send {
+				position: relative;
+				color: transparent;
+				font-family: FontAwesome;
+				width: 32px;
+				height: 32px;
+				border-radius: 16px;
+				right: 0;
+				border: none;
+				background: #F80;
+				overflow: hidden;
+			}
+
+			#send:before {
+				content: "\f1d8";
+				color: white;
+				position: absolute;
+				display: block;
+				top: -16px;
+				left: -32px;
+				width: 32px;
+				line-height: 32px;
+			}
+			#send:after {
+				content: "\f1d8";
+				color: white;
+				position: absolute;
+				display: block;
+				top: 0;
+				left: 0;
+				width: 32px;
+				line-height: 32px;
+			}
+
+			.tag {
+				line-height: 16px;
+				padding: 0 8px;
+				border-radius: 8px;
+				background: #777;
+				margin-right: 4px;
+				font-size: 75%;
+				color: white;
+			}
+			.typing > * {
+				display: inline-block;
+				animation: typing 1.8s infinite;
+			}
+			.typing > :nth-child(1) {animation-delay: 0s}
+			.typing > :nth-child(2) {animation-delay: .6s}
+			.typing > :nth-child(3) {animation-delay: 1.2s}
+
+			@keyframes typing {
+				0% {opacity: .2}
+				20% {opacity: 1}
+				100% {opacity: 0}
+			}
+
+			#send.sending {animation: flash 1.5s infinite step-start;}
+			#send.sending:before {animation: in 1s ease-out infinite}
+			#send.sending:after {animation: out 1s ease-in infinite}
+
+			@keyframes flash {
+				0% {background: #5dd0ef}
+				50% {background: #47abc6}
+			}
+			@keyframes in {
+				from {transform: rotate(90deg);}
+				to {top: 0; left: 0;}
+			}
+			@keyframes out {
+				30% {top: -32px; left: 32px;}
+				100% {top: -32px; left: 32px;}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="messages"><span class="system typing">Connecting to server <span>&bullet;</span><span>&bullet;</span><span>&bullet;</span></span>
+		<span class="system">Connected.</span></div>
+		<footer id="footer">
+			<form id="bar">
+				<input id="message" type="text" placeholder="Type a message">
+				<button id="send" type="submit">Send</button>
+				<span class="tag typing">Sam <span>&bullet;</span><span>&bullet;</span><span>&bullet;</span></span>
+				<span class="tag typing">Bob <span>&bullet;</span><span>&bullet;</span><span>&bullet;</span></span>
+				<span class="tag typing">Ryan <span>&bullet;</span><span>&bullet;</span><span>&bullet;</span></span>
+			</form>
+		</footer>
+
+		<script>
+			document.getElementById("bar").onsubmit = function(event) {
+				document.getElementById("send").className = "sending";
+				setTimeout(function() {document.getElementById("send").className = "";}, 1000);
+				var add = document.getElementById("message").value;
+				document.getElementById("message").value = "";
+				
+				var newMessage = document.createElement("span");
+				newMessage.innerHTML = add;
+				document.getElementById("messages").append(newMessage);
+				
+				return false;
+			};
+		</script>
+	</body>
+</html>
