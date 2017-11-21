@@ -1,0 +1,73 @@
+body {
+	background: url(https://www.planwallpaper.com/static/images/best_modern_city_wallpaper_hd.jpg);
+}
+
+.window {
+	position: absolute;
+	background: rgba(255,255,255,.1) url(tab.svg) 0 -96px repeat-x;
+	display: inline-block;
+	padding: 8px 4px 4px;
+	border-radius: 4px;
+	border: 1px solid #333;
+}
+
+.icon {
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+	display: inline;
+}
+
+.content {
+	position: relative;
+	background: #F3F3F3;
+	margin-top: 24px;
+	border-radius: 4px;
+	font-family: arial;
+	padding: 16px;
+	display: inline-block;
+	min-width: 400px;
+	box-shadow: 0 0 8px rgba(0,0,0,.4);
+	border-bottom: 1px solid #666;
+}
+
+.title-bar {
+	position: absolute;
+	top: -24px;
+	left: 20px;
+}
+.tabbed {
+	position: relative;
+	background: url(tab.svg) 0 -72px repeat-x;
+	display: inline-block;
+	margin: 0 8px;
+	height: 24px;
+}
+.tabbed:hover, .tabbed.enabled {
+	background-position: 0 -48px;
+	z-index: 1;
+}
+
+.tabbed::before, .tabbed::after {
+	content: "";
+	background: url(tab.svg);
+	width: 24px;
+	height: 24px;
+	position: absolute;
+}
+.tabbed:before {
+	background-position: 0 -24px;
+	left: -24px;
+}
+.tabbed:hover::before, .tabbed.enabled::before {background-position: 0 0;}
+
+.close {
+	width: 16px;
+	height: 16px;
+}
+
+.tabbed::after {
+	background-position: -24px -24px;
+	right: -24px;
+}
+.tabbed:hover::after, .tabbed.enabled::after {background-position: -24px 0;}
