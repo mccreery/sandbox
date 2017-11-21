@@ -1,0 +1,4 @@
+good_morning=Good mor-ning. 
+good_afternoon=Good aft-er-noon. 
+good_evening=Good eve-ning. 
+tutorial=Click a-ny-where on the time-line to add a note.
