@@ -15,8 +15,8 @@ def do(file, times=1):
 		file.write(text)
 
 if __name__ == "__main__":
-	if len(sys.argv) > 2:
-		with open("pound.txt", "r+") as file:
+	if len(sys.argv) >= 2:
+		with open(sys.argv[1], "r+") as file:
 			do(file, int(sys.argv[2]) if len(sys.argv) > 2 else 1)
 	else:
 		print("Usage: {} file [iterations]".format(os.path.basename(__file__)), file=sys.stderr)
