@@ -1,6 +1,6 @@
 #include "resources.h"
 
-IDI_ICON ICON "img/icon.ico"
+IDI_ICON ICON "build/icon.ico"
 
 IDM_MENU MENU
 BEGIN

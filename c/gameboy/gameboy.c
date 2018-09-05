@@ -1,8 +1,7 @@
-#include <stdio.h>
-
-#define UNICODE
 #include <windows.h>
 #include <windowsx.h>
+#include <tchar.h>
+#include <stdio.h>
 
 #include "resources.h"
 #include "gameboy.h"
@@ -39,14 +38,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON)),
 		.hCursor = LoadCursor(NULL, IDC_CROSS),
 		.lpszMenuName = MAKEINTRESOURCE(IDM_MENU),
-		.lpszClassName = L"Gameboy"
+		.lpszClassName = TEXT("Gameboy")
 	};
 	LPCWSTR classId = MAKEINTATOM(RegisterClass(&class));
 
 	RECT size = {0, 0, WIDTH * SCALE, HEIGHT * SCALE};
 	AdjustWindowRect(&size, WINDOW_STYLE, TRUE);
 
-	HWND hwnd = CreateWindow(classId, L"Gameboy Logo Painter", WINDOW_STYLE,
+	HWND hwnd = CreateWindow(classId, TEXT("Gameboy Logo Painter"), WINDOW_STYLE,
 		CW_USEDEFAULT, CW_USEDEFAULT, size.right - size.left, size.bottom - size.top,
 		NULL, NULL, hInstance, NULL);
 
@@ -65,7 +64,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return 1;
 	}
 
-	HBITMAP image = CreateDIBSection(hdc, &info, DIB_RGB_COLORS, (void **)&image_data, NULL, 0);
+	CreateDIBSection(hdc, &info, DIB_RGB_COLORS, (void **)&image_data, NULL, 0);
 	load_image(image_data, DEFAULT);
 
 	StretchDIBits(hdc, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, 0, 0, WIDTH, HEIGHT, image_data, &info, DIB_RGB_COLORS, SRCCOPY);
@@ -86,7 +85,7 @@ LRESULT WINAPI WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 			OPENFILENAME open = {
 				.lStructSize = sizeof(OPENFILENAME),
 				.hwndOwner = hWnd,
-				.lpstrFilter = L"Gameboy ROM Images (*.gb)\0*.gb\0",
+				.lpstrFilter = TEXT("Gameboy ROM Images (*.gb)\0*.gb\0"),
 				.Flags = OFN_FILEMUSTEXIST,
 				.lpstrFile = current_file,
 				.nMaxFile = 256
@@ -96,7 +95,7 @@ LRESULT WINAPI WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 				unsigned char new_image[48];
 
 				// Grab the relevant part of the file
-				FILE *file = _wfopen(open.lpstrFile, L"rb");
+				FILE *file = (FILE *)_tfopen(open.lpstrFile, TEXT("rb"));
 				fseek(file, 0x104, SEEK_SET);
 				fread(new_image, 1, 48, file);
 				fclose(file);
@@ -108,7 +107,7 @@ LRESULT WINAPI WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 			unsigned char new_image[48];
 			save_image(new_image, image_data);
 
-			FILE *file = _wfopen(current_file, L"r+b");
+			FILE *file = (FILE *)_tfopen(current_file, TEXT("r+b"));
 			fseek(file, 0x104, SEEK_SET);
 			fwrite(new_image, 1, 48, file);
 			fclose(file);

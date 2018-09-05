@@ -1,12 +1,20 @@
-all: resources.o gameboy.o
-	gcc gameboy.o resources.o -o gameboy.exe -lgdi32 -mwindows
+.PHONY: all clean
 
-resources.o: resources.h img/icon.ico
-	windres resources.rc -O coff -o resources.o
+all: build build/resources.o build/gameboy.o
+	gcc build/gameboy.o build/resources.o -o build/gameboy -lgdi32 -mwindows
 
-icons := $(wildcard img/*.png)
-img/icon.ico: $(icons)
-	magick convert $(icons) icon.ico
+build:
+	mkdir -p build
 
-gameboy.o: gameboy.c
-	gcc -c gameboy.c -std=c99 -Os
+build/resources.o: resources.h build/icon.ico
+	windres resources.rc -O coff -o build/resources.o
+
+icons := $(wildcard img/icon/*.png)
+build/icon.ico: $(icons)
+	magick convert $(icons) build/icon.ico
+
+build/gameboy.o: gameboy.c
+	gcc -Wall -DUNICODE -D_UNICODE -c gameboy.c -o build/gameboy.o -std=c99 -Os
+
+clean:
+	rm -rf build
