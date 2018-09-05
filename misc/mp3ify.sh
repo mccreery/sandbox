@@ -4,8 +4,8 @@ shopt -s globstar
 shopt -s nullglob
 
 losslessroot=${1:-FLAC}
-lossyroot=${2:-MP3-320}
-#lossyroot=${2:-OPUS-128}
+lossyroot=${2:-MP3}
+#lossyroot=${2:-OPUS}
 
 echo Mirroring from \"$losslessroot\" to \"$lossyroot\"
 skipped=0
