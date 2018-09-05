@@ -63,7 +63,11 @@ class Segment(object):
 
 class Snake(tkinter.Canvas):
 	def __init__(self):
-		tkinter.Canvas.__init__(self, width=SIZE * SCALE, height=SIZE * SCALE, highlightthickness=0)
+		self.canvas_size = SIZE * SCALE
+		self.max_score = SIZE * SIZE - 1
+		self.digits = len(str(self.max_score))
+		tkinter.Canvas.__init__(self, width=self.canvas_size, height=self.canvas_size, highlightthickness=0)
+
 		self.pack()
 		self.master.title("Snake")
 
@@ -71,25 +75,22 @@ class Snake(tkinter.Canvas):
 		self.bind("<space>", self.reset)
 		self.focus_set()
 		self.segments = []
-		self.scores = []
+		self.gameover = None
 		self.apple_shape = self.create_oval(0, 0, 0, 0, fill="red", outline="")
-		self.display = self.create_text(SIZE * SCALE / 2, 5)
+		self.display = self.create_text(self.canvas_size - 5, 5, font=(None, -48, "bold"), anchor=tkinter.NE)
 
 		self.reset()
 		self.after(DELAY, self.advance)
 
 	def update_score(self):
-		self.itemconfig(self.display, text="Score: " + str(self.score))
+		self.itemconfig(self.display, text=str(self.score).rjust(self.digits, "0"))
 
 	def reset(self, *args, **kwargs):
 		for segment in self.segments:
 			self.delete(segment.rect)
 		self.segments.clear()
 
-		for line in self.scores:
-			self.delete(line)
-		self.scores.clear()
-
+		self.delete(self.gameover)
 		self.score = 0
 		centre = SIZE // 2
 		self.head = Marker(centre, centre)
@@ -101,12 +102,8 @@ class Snake(tkinter.Canvas):
 		self.playing = True
 
 	def show_score(self):
-		x = SCALE * SIZE / 2
-		y = SCALE * SIZE / 2
-		self.scores = [
-			self.create_text(x, y - 5, text="GAME OVER"),
-			self.create_text(x, y + 5, text="Your score was " + str(self.score))
-		]
+		self.gameover = self.create_text(self.canvas_size / 2, self.canvas_size / 2, justify=tkinter.CENTER,
+			font=(None, -36), text="GAME OVER\nPress SPACE to reset")
 
 	def move_apple(self):
 		self.apple.x = random.randint(0, SIZE - 1)
@@ -146,6 +143,7 @@ class Snake(tkinter.Canvas):
 			overflow = self.head.advance()
 			if overflow or self.head.direction != self.segments[-1].direction:
 				self.segments.append(Segment(self, self.head))
+				self.tag_raise(self.display)
 			else:
 				self.segments[-1].advance(PROVIDE)
 
