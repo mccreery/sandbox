@@ -1,0 +1,37 @@
+body {
+    background: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12pt;
+    color: #444;
+    margin-top: 100px;
+
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: center;
+    line-height: 1.6em;
+}
+
+.col {
+    min-width: 0;
+    max-width: 55ch;
+    margin: 0 2ch;
+}
+
+p {
+    text-align: justify;
+}
+
+.scroll-wrapper {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.curse-frame {
+    border: none;
+    width: 100%;
+    min-width: 583px;
+}
+
+a { color: #49ADFF; text-decoration: underline; }
+a:visited { color: #9060FF; }
