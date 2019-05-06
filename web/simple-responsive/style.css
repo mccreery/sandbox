@@ -66,6 +66,11 @@ pre {
     counter-reset: line;
 }
 
+.line {
+    display: inline-block;
+    width: 100%;
+}
+
 .line::before {
     counter-increment: line;
     content: counter(line);
@@ -75,15 +80,36 @@ pre {
     margin-right: 1ch;
 }
 
+.line.add {
+    background-color: rgba(0, 255, 0, .1);
+}
+.line.remove {
+    background-color: rgba(255, 0, 0, .1);
+}
+
+.line.add::before {
+    content: '+ ' counter(line);
+    color: green;
+}
+.line.remove::before {
+    content: '- ' counter(line);
+    color: darkred;
+}
+
 pre > code {
     display: block;
     background: none;
     margin: 0;
+    padding: .2em 0;
+    position: relative;
 }
 
 .spaces, .tabs {
     display: inline-block;
     position: relative;
+    background-image: repeating-linear-gradient(90deg,
+            rgba(0,0,0,.1), rgba(0,0,0,.1) .5px,
+            transparent .5px, transparent 4ch);
 }
 
 .spaces::before {
