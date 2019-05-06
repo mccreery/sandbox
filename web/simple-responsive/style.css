@@ -10,6 +10,10 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     line-height: 1.6em;
+
+    tab-size: 4;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
 }
 
 .col {
@@ -35,3 +39,65 @@ p {
 
 a { color: #0097D8; text-decoration: underline; }
 a:visited { color: #2857AF; }
+
+h1, h2, h3, h4, h5, h6 {
+    color: #163770;
+    border-bottom: .1em solid #22488E;
+    padding-bottom: .5em;
+}
+
+mark, code {
+    border-radius: .2em;
+    padding: .1em .2em;
+    margin: -.1em -.2em;
+}
+
+mark {
+    background-color: rgba(255, 230, 89, .4);
+}
+
+code, pre {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+pre {
+    overflow-x: auto;
+    border-radius: .2em;
+    counter-reset: line;
+}
+
+.line::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 4ch;
+    text-align: right;
+    margin-right: 1ch;
+}
+
+pre > code {
+    display: block;
+    background: none;
+    margin: 0;
+}
+
+.spaces, .tabs {
+    display: inline-block;
+    position: relative;
+}
+
+.spaces::before {
+    content: '································';
+}
+.tabs::before {
+    content: '→	→	→	→	→	→	→	→	';
+}
+
+.spaces::before, .tabs::before {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: -1;
+    color: rgba(0, 0, 0, .3);
+}

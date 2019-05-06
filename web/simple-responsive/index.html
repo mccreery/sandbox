@@ -54,10 +54,24 @@
             <section>
                 <h1>‘Unicode’ vs. 'ASCII'</h1>
                 <p>We use <a href="https://en.wikipedia.org/wiki/Unicode">Unicode</a>. What’s more we don’t fuss with those HTML entities like some <code>&amp;rsquo;</code> nonsense either (except that &amp;, which we can’t avoid). Just gotta make sure we include the charset declaration, or our page gets <a href="https://en.wikipedia.org/wiki/Mojibake">mojibake</a>’d:
-                <pre><code>&lt;meta charset="utf-8"&gt;</code></pre></p>
+                <pre><code><span class="line">&lt;meta charset="utf-8"&gt;</span></code></pre></p>
                 <p>I considered fixing a justification style, like the <code>inter-word</code> or <code>inter-character</code> values for the CSS3 property <code>text-justify</code>. In the end, I decided that in general justifi­cation should be kept to a minimum by using short words and offering hyphen­ation for longer ones. For example, in the previous paragraph I moved the inline HTML code to its own line to avoid overjustification.</p>
-                <p>We can even use some weird symbols like kg⋅ms<sup>-1</sup>, or use lots of weird spaces like kg ms<sup>-1</sup> (<a href="https://unicode-table.com/en/202F/">U+202F Narrow No-Break Space</a>). We can really fine-tweak and leverage the typographic design that goes into our font.</p>
+                <p>We can even use some weird symbols like kg<mark>⋅</mark>ms<sup>-1</sup> (<a href="https://unicode-table.com/en/22C5">U+22C5 Dot Operator</a>), or use lots of weird spaces like kg<mark> </mark>ms<sup>-1</sup> (<a href="https://unicode-table.com/en/202F/">U+202F Narrow No-Break Space</a>). We can really fine-tweak and leverage the typographic design that goes into our font.</p>
                 <p>I could have gone even further in this department and used <a href="https://en.wikipedia.org/wiki/Typographic_ligature"><dfn>ligatures</dfn></a>, which are joined (usually pairs of) letters, but the returns are much diminishing. There used to be some ligatures quoted inline here, but including them causes the browser to download another font file, and that’s just no good.</p>
+            </section>
+
+            <section>
+                <h1>Helpful code blocks</h1>
+                <p>The code blocks are clean and simple. Using a little extra markup we have extras like line numbers and visible whitespace, <strong>which do not get copied</strong>. This means we can show <em>exact</em> text, and let the user copy it verbatim. Go ahead and copy this C program into your text editor:</p>
+                <pre><code><span class="line">#include &lt;stdio.h&gt;<span>
+<span class="line"></span>
+<span class="line">int main(int argc, char *argv[])</span>
+<span class="line">{</span>
+<span class="line"><span class="spaces">    </span>printf("Hello, world!\n");</span>
+<span class="line"><span class="tabs">	</span>/* This line is indented with a tab</span>
+<span class="line"><span class="spaces">     </span>* but now we're back to spaces */</span>
+<span class="line">}</span></code></pre>
+                <p>Syntax highlighting is a very similar approach, but is best done by the server or JavaScript using the actual language syntax.</p>
             </section>
 
             <section>
