@@ -1,0 +1,161 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><style>
+body {
+font-family: arial, sans-serif;
+color: white;
+display: inline-block;
+}
+
+.grid {
+display:inline-grid;
+grid-gap: 4px;
+width: 300px;
+vertical-align: top;
+}
+
+.c4 {grid-template-columns: 1fr 1fr 1fr 1fr}
+.c6 {grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
+.c8 {grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr}
+
+.grid > * {
+position: relative;
+padding-bottom: 100%;
+background-color: rgba(0,0,0,.05);
+}
+
+.green {background-color: green;}
+.red {background-color: red;}
+.blue {background-color: blue;}
+.yellow {background-color: yellow; color: black;}
+.red-green {background: linear-gradient(135deg, red 0%, red 50%, green 50%);}
+.yellow-green {background: linear-gradient(135deg, yellow 0%, yellow 50%, green 50%);}
+.yellow-green .top-left {color: black;}
+
+.grid > div > span {
+position: absolute;
+text-align: center;
+margin-top: -.5em;
+}
+
+.middle {
+top: 50%;
+width: 100%;
+}
+
+.top-left {
+top: 25%;
+width: 50%;
+}
+
+.bottom-right {
+top: 75%;
+left: 50%;
+width: 50%;
+}
+
+</style>
+
+</head><body><div class="grid c4">
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+</div>
+
+<div class="grid c6">
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div style="grid-column-end: span 2; grid-row-end: span 4"><span class="middle" style="color:black">None</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+</div>
+
+<div class="grid c8">
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div style="grid-column-end: span 4; grid-row-end: span 6"><span class="middle" style="color:black">None</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="yellow"><span class="middle">Y</span></div>
+<div class="red"><span class="middle">R</span></div>
+<div class="red"><span class="middle">R</span></div>
+
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="yellow-green"><span class="top-left">Y</span><span class="bottom-right">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="green"><span class="middle">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+<div class="red-green"><span class="top-left">R</span><span class="bottom-right">G</span></div>
+</div></body></html>
