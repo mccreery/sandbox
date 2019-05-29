@@ -1,0 +1,57 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><style>
+html {
+display: flex;
+justify-content: center;
+margin-top: 2em;
+}
+
+body {
+font-family: sans-serif;
+width: 65ch;
+text-align: justify;
+}
+
+pre {
+overflow-x: auto;
+}
+
+.noruby rt { display: inline; font-size: 100%; }
+.noruby rp { display: inline; }
+</style>
+
+</head><body>HTML5 defines some interesting new tags, not least of which being the <code>&lt;ruby&gt;</code> tag. <code>&lt;ruby&gt;</code> allows webpages to show <a href="https://en.wikipedia.org/wiki/Ruby_annotation">ruby characters</a>,
+ which are annotations usually displayed above Asian (fullwidth) 
+language characters, such as kanji. An example is the Japanese word for 
+ruby characters:
+
+<ruby><rb>&#25391;</rb><rb>&#12426;</rb><rb>&#20206;</rb><rb>&#21517;</rb><rp>&#12300;</rp><rt>&#12405;</rt><rt></rt><rp>&#12426;</rp><rt>&#12364;</rt><rt>&#12394;</rt><rp>&#12301;</rp></ruby> <i>(furigana)</i>,
+or “hello”:
+<ruby><rb>&#20170;</rb><rb>&#26085;</rb><rp>&#12300;</rp><rt>&#12371;&#12435;</rt><rt>&#12395;&#12385;</rt><rp>&#12301;</rp></ruby>&#12399; <i>(konnichi wa)</i>.
+
+<p>The unfortunate thing, as is the case with most modern HTML features,
+ is that browser support is sparse. One case is when the annotation is 
+identical to the base text. It serves no purpose, and can be hidden. 
+Firefox implements this functionality, but other browsers do not. A 
+workaround is to use the <code>&lt;rp&gt;</code> element, which stands for <i>ruby parentheses</i>, but can be used for any extra text which should show up in browsers without ruby character support. If we write <code>&lt;rt&gt;&lt;rp&gt;&#12426;&lt;/rp&gt;</code> in place of <code>&lt;rt&gt;&#12426;</code>,
+ the symbol &#12426; will only appear as part of the hiragana spelling &#12405;&#12426;&#12364;&#12394; 
+when ruby characters are not supported. This works because the <code>&lt;rt&gt;</code>
+ element is empty, which means the base symbol has no annotation. If we 
+“turn off” ruby characters by writing some CSS, we can demonstrate the 
+workaround:
+
+</p><pre><code>&lt;style&gt;
+	.noruby rt { display: inline; font-size: 100%; }
+	.noruby rp { display: inline; }
+&lt;/style&gt;
+
+&lt;ruby&gt;&lt;rb&gt;&#25391;&lt;rb&gt;&#12426;&lt;rb&gt;&#20206;&lt;rb&gt;&#21517;&lt;rp&gt;&#12300;&lt;/rp&gt;&lt;rt&gt;&#12405;&lt;rt&gt;&lt;rp&gt;&#12426;&lt;/rp&gt;&lt;rt&gt;&#12364;&lt;rt&gt;&#12394;&lt;rp&gt;&#12301;&lt;/rp&gt;&lt;/ruby&gt;
+&lt;br&gt;
+&lt;ruby class="noruby"&gt;&lt;rb&gt;&#25391;&lt;rb&gt;&#12426;&lt;rb&gt;&#20206;&lt;rb&gt;&#21517;&lt;rp&gt;&#12300;&lt;/rp&gt;&lt;rt&gt;&#12405;&lt;rt&gt;&lt;rp&gt;&#12426;&lt;/rp&gt;&lt;rt&gt;&#12364;&lt;rt&gt;&#12394;&lt;rp&gt;&#12301;&lt;/rp&gt;&lt;/ruby&gt;
+</code></pre>
+Produces the following:
+<p style="margin-left: 4ch">
+<ruby><rb>&#25391;</rb><rb>&#12426;</rb><rb>&#20206;</rb><rb>&#21517;</rb><rp>&#12300;</rp><rt>&#12405;</rt><rt></rt><rp>&#12426;</rp><rt>&#12364;</rt><rt>&#12394;</rt><rp>&#12301;</rp></ruby>
+<br>
+<ruby class="noruby"><rb>&#25391;</rb><rb>&#12426;</rb><rb>&#20206;</rb><rb>&#21517;</rb><rp>&#12300;</rp><rt>&#12405;</rt><rt></rt><rp>&#12426;</rp><rt>&#12364;</rt><rt>&#12394;</rt><rp>&#12301;</rp></ruby>
+</p><p>Note that the markup is identical except the class applied to <code>&lt;ruby&gt;</code>. The markup is also quite verbose, which is a shame, but a lot of meaning is packed in. At least <code>&lt;/rb&gt;</code> and <code>&lt;/rt&gt;</code> can be omitted.</p></body></html>
