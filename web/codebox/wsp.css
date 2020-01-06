@@ -1,0 +1,21 @@
+.wsp {
+    /* Creates a container context for absolute children */
+    position: relative; /* Container context */
+    z-index: 0; /* Stacking context */
+}
+
+.wsp::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    content: attr(data-wsp); /* Use data from generated HTML */
+    z-index: -1; /* Stack underneath actual text */
+    pointer-events: none; /* Prevent highlighting */
+
+    opacity: 0.3;
+}
+
+.tabs::before {
+    letter-spacing: 3ch;
+}

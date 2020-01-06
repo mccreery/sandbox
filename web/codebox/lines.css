@@ -1,0 +1,24 @@
+/* Each line will be preceeded by a line number */
+.line {
+    counter-increment: line;
+}
+
+.line::before {
+    content: counter(line);
+
+    display: inline-block; /* Allows explicit width */
+    width: 3ch;
+    margin-right: 1ch;
+
+    /* Right align with overflow disappearing to the left */
+    direction: rtl;
+    overflow: hidden;
+    /*
+     * Combining display: inline-block and overflow: hidden
+     * changes the baseline of the text, so we have to realign
+     */
+    vertical-align: top;
+
+    /* Allow selections started over the line number */
+    pointer-events: none;
+}

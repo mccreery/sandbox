@@ -1,0 +1,13 @@
+@import "wsp.css";
+@import "lines.css";
+
+body {
+    /* Default is 8 */
+    tab-size: 4;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+}
+
+::selection {
+    background: rgba(0, 191, 255, 0.3);
+}

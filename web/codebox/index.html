@@ -1,0 +1,39 @@
+<meta charset=utf-8>
+<title>Code Test</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/default.min.css">
+<link rel=stylesheet href=style.css>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+<script src=wsp.js></script>
+
+<textarea id=code-input style="width: 100%; resize: vertical" rows=15></textarea>
+<button style="display: block" onclick="generate()">Generate</button>
+<pre><code id=code-output></code></pre>
+
+<script>
+    const inputElement = document.getElementById("code-input");
+    const outputElement = document.getElementById("code-output");
+
+    inputElement.onkeydown = function(e) {
+        if (e.key == "Tab") {
+            e.preventDefault();
+            replaceSelection(this, "\t");
+        } else if(e.key == "Enter" && e.ctrlKey) {
+            e.preventDefault();
+            generate();
+        }
+    };
+
+    function replaceSelection(textarea, str) {
+        const selectionStart = textarea.selectionStart;
+
+        textarea.value = textarea.value.slice(0, textarea.selectionStart) +
+            str + textarea.value.slice(textarea.selectionEnd);
+
+        textarea.selectionEnd = selectionStart + str.length;
+    }
+
+    function generate() {
+        outputElement.innerHTML = markupWhitespace(inputElement.value);
+        hljs.highlightBlock(outputElement);
+    }
+</script>
