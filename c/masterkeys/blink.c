@@ -1,4 +1,5 @@
-#include "setup.h"
+#include <SDKDLL.h>
+#include <stdbool.h>
 #include <time.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -14,8 +15,8 @@ typedef struct {
 	float stage, speed;
 } STAR;
 
- bool update_star(STAR * const star, KEY_COLOR color);
- 
+bool update_star(STAR * const star, KEY_COLOR color);
+
 float brightness(float stage) {
 	float val = stage < 0.5 ? stage*2.f : 2.f - stage*2.f;
 	return val < 0 ? 0 : val > 1 ? 1 : val;
