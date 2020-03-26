@@ -1,0 +1,113 @@
+# Use the last dialect you recognise
+%dialect:
+  core: @1.0
+  extension
+
+keyForString: "Hello \\ world!"
+keyForString: 'Hello \ world!'
+keyForString: "Hello\nWorld"
+keyForString: 'Hello
+'             'World'
+keyForString: \
+ 'Hello
+''World'
+keyForString: "\
+Hello
+World\
+"
+
+troublesomePath: "C:\\Windows\\System32"
+easier: 'C:\Windows\System32'
+
+easierWithNewlinesAndIndented:
+  'C:\Windows\System32' "\n" \
+  'C:\Users\Sam' "\n" \
+  'C:\SteamLibrary' "\n"
+  
+alternatively:
+  'C:\Windows\System32
+' 'C:\Users\Sam
+' 'C:\SteamLibrary'
+
+orEven: \
+'C:\Windows\System32
+C:\Users\Sam
+C:\SteamLibrary'
+
+backslashesAndSingleQuotes:
+  ''C:\Windows\System32'' "'where notepad.exe is found'"
+
+singleQuotedPaths:
+"'" ''C:\Windows\System32'
+'C:\Users\Sam'
+'C:\SteamLibrary'' "'"
+
+# - strings start with a sequence of one or more single or double quotes
+# - the string ends when the same number of quotes of the same type is seen
+# - \\ \<LF> \n \" are allowed in double quote strings
+# - Single quote strings are completely literal
+# - Single quote strings can be used to quote entire documents of any type
+
+keyForString: ""\
+{
+    "raw json string": "just directly in the file",
+    "yes really": [1, 2, 3],
+    "the only thing is": [
+        "you have to escape",
+        "the leading and trailing newlines",
+        "if you don't want them"
+    ]
+}
+""
+
+string2: "don't think that 'single quotes' are not allowed"
+
+keyForFloat: 3.0
+keyForFloat: -4e6
+
+keyForList: 1, 2, 3, 4, 5
+keyForList:
+  1, 2, 3
+  4, 5, 6
+
+keyForDict: a: 1, b: 2
+  c: 3, d: 4
+
+keyForDict:
+  a: 1
+  b: 2
+  c: d: 3, e: 4
+  nestedList:
+    "hello"
+    "world"
+
+oneItemList: 3,
+
+keyForDatetime: 1970-01-01T00:00:00Z
+keyForDatetime: 1970-01-01+08:00
+
+list2d:
+  : 1, 0, 0, 0
+  : 0, 1, 0, 0
+  : 0, 0, 1, 0
+  : 0, 0, 0, 1
+
+schema:
+  keyForString: string
+  keyForFloat: float
+  keyForList: int,
+  keyForDict:
+    a: int, b: int, c: int, d: int, e: int
+    nestedList: string,
+
+  list: ,
+  typedList: int,
+  dict: :,
+  typedDict: : int,
+  list2D: int,,
+
+# Comments
+# Value types:
+# <int> := [+-]?[\d^0]\d*
+# <float> := <int>([.\d*]|[Ee]<int>) or both lol
+# <id> := [A-Za-z_][A-Za-z0-9_]*
