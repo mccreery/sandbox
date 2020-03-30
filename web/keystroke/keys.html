@@ -1,0 +1,179 @@
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<style>
+body {
+width: 100%;
+height: 100%;
+padding: 0;
+margin: 0;
+}
+
+.button {
+display: block;
+position: fixed;
+margin: 0;
+padding: 0;
+width: 64px;
+height: 64px;
+background: rgba(0,0,0,.2);
+border: 2px solid rgba(0,0,0,.5);
+border-radius: 5px;
+line-height: 64px;
+text-align: center;
+font-size: 32px;
+font-family: Roboto, sans-serif;
+color: #fff;
+text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+box-shadow: 0 -8px 0 rgba(0,0,0,.1) inset;
+padding-bottom: 8px;
+transition: margin .05s, padding .05s;
+}
+
+.pressed {
+	background: rgba(0,0,0,.3);
+	margin-top: 8px;
+	padding-bottom: 0px;
+	box-shadow: none;
+}
+
+#scroll {
+	background: rgba(0,0,0,.1) linear-gradient(rgba(0,0,0,.1) 8px, #fff 8px, #fff 10px, rgba(0,0,0,.1) 10px) 0 -5px repeat-y;
+	background-size: 100% 10px;
+}
+
+#scroll.scrolling {
+	animation: bum 0.05s linear infinite;
+}
+@keyframes bum {
+	from {background-position: 0 -5px;}
+	to {background-position: 0 -15px;}
+}
+</style>
+<body>
+
+<script>
+
+// CONFIG
+
+var client_ip = '127.0.0.1';
+var host_ip = '127.0.0.1';
+var host_port = '7788';
+
+var auto_approve = 'true';
+
+// CONFIG
+
+var KeystrokeClient = new function() {
+	var _this = this;
+
+	_this._ws = null;
+	_this._reconnect_timer = null;
+	_this._host_ip = null;
+	_this._host_port = null;
+
+	_this.start = function(host_ip, host_port)
+	{
+		if(typeof host_ip !== 'string' && typeof host_port !== 'string')
+			return;
+
+		if (_this._ws !== null)
+		{
+			_this._ws.close();
+			_this._ws = null;
+		}
+
+		_this._host_ip = host_ip;
+		_this._host_port = host_port;
+
+		_this._ws = new WebSocket('ws://' + host_ip + ':' + host_port);
+		_this._ws.onclose = _this._onClose;
+		_this._ws.onmessage = _this._onMessage;
+	};
+
+	_this.stop = function() {_this._ws.close;}
+	_this._onClose = function() {
+		_this._ws = null;
+
+		if(_this._reconnect_timer !== null) clearTimeout(_this._reconnect_timer);
+		_this._reconnect_timer = setTimeout(function() {
+			_this._reconnect_timer = null;
+			_this.start(_this._host_ip, _this._host_port);
+		}, 10000);
+	};
+
+	_this._onMessage = function(e) {
+		if(typeof e === 'object' && typeof e.data === 'string') {
+			if(e.data.length === 4) {
+				var toggle = (e.data[0] === '+');
+				var key_code = parseInt(e.data[1] + e.data[2] + e.data[3], 16);
+
+				if(toggle) {
+					if(typeof _this.onKeyDown === 'function')
+						_this.onKeyDown(key_code, _this._modifier_keys_states);
+				} else {
+					if(typeof _this.onKeyUp === 'function')
+						_this.onKeyUp(key_code, _this._modifier_keys_states);
+				}
+			} else if(e.data === 'server approved') {
+				console.log("APPROVED");
+				if(typeof _this.onConnect === 'function')
+					_this.onConnect();
+			}
+		}
+	};
+};
+
+	const buttons = [
+		["W", 87, 38, 0, 64, 64],
+		["A", 65, 0, 78, 64, 64],
+		["S", 83, 74, 78, 64, 64],
+		["D", 68, 148, 78, 64, 64],
+		["E", 69, 112, 0, 64, 64],
+		["Ctrl", 162, 0, 156, 101, 64],
+		["␣", 32, 111, 156, 101, 64],
+		["", 1, 222, 0, 64, 220],
+		["", 2, 296, 0, 64, 220],
+		["", 4, 283, 48, 16, 32]
+	];
+
+	buttons.forEach(function(x) {
+		var button = document.createElement("div");
+		button.className = "button";
+		button.style.left = x[2];
+		button.style.top = x[3];
+		button.style.width = x[4];
+		button.style.height = x[5];
+		button.innerHTML = x[0];
+		x[0] = button;
+		document.body.appendChild(button);
+	});
+	buttons[9][0].id = "scroll";
+
+	function stateChange(code, state) {
+		//console.log(code, state);
+		for(var i = 0; i < buttons.length; i++) {
+			if(code == buttons[i][1]) {
+				buttons[i][0].className = state ? "button pressed" : "button";
+				return false;
+			}
+		}
+		return true;
+	}
+
+	var scrollTimeout;
+	KeystrokeClient.onKeyDown = function(code) {
+		if(code === 10 || code === 11) {
+			buttons[9][0].className = "button scrolling";
+			clearTimeout(scrollTimeout);
+			scrollTimeout = setTimeout(function() {
+					buttons[9][0].className = "button";
+			}, 50);
+			return false;
+		}
+		return stateChange(code, true);
+	};
+	KeystrokeClient.onKeyUp = function(code) {return stateChange(code, false);};
+
+	KeystrokeClient.start(host_ip, host_port);
+</script>
+</body>
