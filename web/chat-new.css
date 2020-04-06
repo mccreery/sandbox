@@ -1,0 +1,28 @@
+/* https://www.nightdev.com/hosted/obschat/?channel=jobicade&fade=false&bot_activity=false&prevent_clipping=false */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: rgba(0,0,0,.5);
+}
+
+#chat_box {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  height: 100% !important;
+  box-sizing: border-box;
+}
+
+#chat_box {
+  color: white;
+  font-size: 20px;
+}
+
+.nick {
+  font-weight: normal;
+}
+
+.chat_line[data-nick=Chat] {
+  display: none;
+}
