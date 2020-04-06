@@ -1,0 +1,41 @@
+/* https://www.nightdev.com/hosted/obschat/?channel=jobicade&fade=false&bot_activity=false&prevent_clipping=false */
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  background: rgba(0,0,0,.3);
+}
+
+#chat_box {
+  font-size: 24px;
+  float: right;
+  color: white;
+  border-radius: 0;
+
+  width: unset !important;
+  line-height: 48px;
+  position: unset !important;
+
+  transition: width .5s;
+}
+
+.chat_line {
+  display: inline-block;
+  max-width: 500px;
+  vertical-align: middle;
+  margin-left: 2ch;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat_line[data-nick="Chat"] {  
+  display: none;  
+}
