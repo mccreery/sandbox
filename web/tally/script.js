@@ -3,7 +3,7 @@
 let numTallies = 0;
 const fontLoad = document.fonts.load("italic bold 1em DSEG7");
 
-function addTally(initialValue) {
+function createTally(initialValue) {
   initialValue = initialValue || 0
 
   const name = document.createElement("input");
@@ -44,12 +44,13 @@ function addTally(initialValue) {
     root.appendChild(lcdEffect);
   })
 
-  document.body.appendChild(root);
+  return root;
 }
 
 const button = document.createElement("button");
-button.innerText = "Create Tally";
-button.onclick = _ => addTally();
+button.className = "add-button";
+button.innerText = "+";
+button.title = "Add new timer";
+button.onclick = _ => button.parentNode.insertBefore(createTally(), button);
 document.body.appendChild(button);
-
-addTally();
+button.parentNode.insertBefore(createTally(), button)

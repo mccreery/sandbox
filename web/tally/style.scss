@@ -15,12 +15,26 @@
   border-radius: 100vmax;
 }
 
+body {
+  display: flex;
+  align-items: center;
+}
+
+.add-button {
+  width: 4rem;
+  height: 4rem;
+  border: none;
+  margin: 2rem;
+  @include max-radius;
+}
+
 .tally {
   width: 16rem;
   height: 9rem;
   padding: 2rem 1rem;
   border: 1px solid #ccc;
   border-radius: 2rem;
+  margin: 1rem;
 
   display: grid;
   grid-template: 1fr 4fr 2fr 2fr / 1fr 1fr;
