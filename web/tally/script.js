@@ -1,10 +1,10 @@
 "use strict";
 
 let numTallies = 0;
-const fontLoad = document.fonts.load("italic bold 1em DSEG7");
+const fontLoad = document.fonts && document.fonts.load("italic bold 1em DSEG7");
 
 function createTally(initialValue) {
-  initialValue = initialValue || 0
+  initialValue = initialValue || 0;
 
   const name = document.createElement("input");
   name.className = "tally-name";
@@ -45,10 +45,10 @@ function createTally(initialValue) {
   close.onclick = () => root.parentNode.removeChild(root);
   root.appendChild(close);
 
-  fontLoad.then(value => {
+  fontLoad && fontLoad.then(value => {
     const lcdEffect = document.createElement("span");
     lcdEffect.className = "lcd-effect";
-    root.appendChild(lcdEffect);
+    root.insertBefore(lcdEffect, root.firstChild);
   })
 
   return root;
