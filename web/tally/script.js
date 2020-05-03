@@ -51,3 +51,5 @@ const button = document.createElement("button");
 button.innerText = "Create Tally";
 button.onclick = _ => addTally();
 document.body.appendChild(button);
+
+addTally();

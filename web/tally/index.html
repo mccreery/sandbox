@@ -4,9 +4,30 @@
     <meta charset="utf-8">
     <title>Tally Counter</title>
 
-    <script src="script.js" defer></script>
+    <script>
+      // Fallback if script fails - act as if JS is disabled
+      function onScriptFailed() {
+        for (const el of document.getElementsByTagName("noscript")) {
+          const template = document.createElement("template");
+          template.innerHTML = el.innerHTML;
+          el.parentNode.replaceChild(template.content, el);
+        }
+      }
+    </script>
+
+    <script src="script.js" defer onerror="onScriptFailed()"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <noscript>
+      <div class="tally">
+        <input class="tally-name" value="Tally 1">
+        <input type="number" class="tally-box" value="0">
+        <button class="tally-button plus" disabled>+</button>
+        <button class="tally-button minus" disabled>−</button>
+        <button class="tally-button reset" disabled>Reset</button>
+        <div class="js-disabled">JavaScript disabled</div>
+      </div>
+    </noscript>
   </body>
 </html>
