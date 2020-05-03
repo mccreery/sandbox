@@ -14,7 +14,7 @@ function addTally(initialValue) {
   output.value = initialValue;
   output.className = "tally-box";
 
-  const lcdEffect = document.createElement("div");
+  const lcdEffect = document.createElement("span");
   lcdEffect.className = "lcd-effect";
 
   const plus = document.createElement("button");
