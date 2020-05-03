@@ -15,15 +15,15 @@ function createTally(initialValue) {
   output.value = initialValue;
   output.className = "tally-box";
 
-  const plus = document.createElement("button");
-  plus.className = "tally-button plus";
-  plus.innerText = "+";
-  plus.onclick = () => ++output.value;
-
   const minus = document.createElement("button");
   minus.className = "tally-button minus";
   minus.innerText = "−"; // Minus sign, not ASCII
   minus.onclick = () => --output.value;
+
+  const plus = document.createElement("button");
+  plus.className = "tally-button plus";
+  plus.innerText = "+";
+  plus.onclick = () => ++output.value;
 
   const reset = document.createElement("button");
   reset.className = "tally-button reset";
@@ -34,8 +34,8 @@ function createTally(initialValue) {
   root.className = "tally";
   root.appendChild(name);
   root.appendChild(output);
-  root.appendChild(plus);
   root.appendChild(minus);
+  root.appendChild(plus);
   root.appendChild(reset);
 
   const close = document.createElement("button");

@@ -26,9 +26,9 @@ button {
   &::-moz-focus-inner { border: 0; }
 }
 
-.plus { grid-area: 3 / 2 / 5 / 3; }
 .minus { grid-area: 3 / 1 / 4 / 2; }
-.reset { grid-area: 4 / 1 / 5 / 2; }
+.plus { grid-area: 3 / 2 / 4 / 3; }
+.reset { grid-area: 4 / 1 / 4 / 3; }
 
 .close-button {
   position: absolute;
