@@ -105,7 +105,7 @@ body {
   font: italic bold 1em DSEG7, monospace;
   font-size: 2rem;
 
-  z-index: -1;
+  pointer-events: none;
   &::after {
     content: "8.8.8.8.8.8.8.8.";
     opacity: 0.1;
