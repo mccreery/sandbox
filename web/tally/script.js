@@ -38,6 +38,13 @@ function createTally(initialValue) {
   root.appendChild(minus);
   root.appendChild(reset);
 
+  const close = document.createElement("button");
+  close.innerHTML = "❌&#xFE0E;";
+  close.className = "close-button";
+  close.title = "Remove timer";
+  close.onclick = () => root.parentNode.removeChild(root);
+  root.appendChild(close);
+
   fontLoad.then(value => {
     const lcdEffect = document.createElement("span");
     lcdEffect.className = "lcd-effect";

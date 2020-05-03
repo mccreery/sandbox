@@ -11,8 +11,31 @@
   align-items: center;
 }
 
-@mixin max-radius {
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
   border-radius: 100vmax;
+
+  background: #ddd;
+  &:hover, &:focus { background: #eee; }
+  &:active { background: #ccc; }
+  &:focus { outline: 0; }
+  &::-moz-focus-inner { border: 0; }
+}
+
+.plus { grid-area: 3 / 2 / 5 / 3; }
+.minus { grid-area: 3 / 1 / 4 / 2; }
+.reset { grid-area: 4 / 1 / 5 / 2; }
+
+.close-button {
+  position: absolute;
+  right: 0;
+  background: none;
+  padding: 0;
+  margin: 1.5em;
 }
 
 body {
@@ -23,12 +46,10 @@ body {
 .add-button {
   width: 4rem;
   height: 4rem;
-  border: none;
-  margin: 2rem;
-  @include max-radius;
 }
 
 .tally {
+  position: relative;
   width: 16rem;
   height: 9rem;
   padding: 2rem 1rem;
@@ -94,24 +115,6 @@ body {
 .tally-box:focus {
   outline: none;
 }
-
-.tally-button {
-  @include centered;
-  @include max-radius;
-
-  background: #ddd;
-  border: none;
-
-  &:hover, &:focus { background: #eee; }
-  &:active { background: #ccc; }
-
-  &:focus { outline: 0; }
-  &::-moz-focus-inner { border: 0; }
-}
-
-.plus { grid-area: 3 / 2 / 5 / 3; }
-.minus { grid-area: 3 / 1 / 4 / 2; }
-.reset { grid-area: 4 / 1 / 5 / 2; }
 
 .js-disabled {
   grid-area: 3 / 1 / 5 / 3;
