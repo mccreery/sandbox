@@ -3,61 +3,35 @@
 let numTallies = 0;
 const fontLoad = document.fonts && document.fonts.load("italic bold 1em DSEG7");
 
-function createTally(initialValue) {
-  initialValue = initialValue || 0;
-
-  const name = document.createElement("input");
-  name.className = "tally-name";
-  name.value = "Tally " + ++numTallies;
-
-  const output = document.createElement("input");
-  output.type = "number";
-  output.value = initialValue;
-  output.className = "tally-box";
-
-  const minus = document.createElement("button");
-  minus.className = "tally-button minus";
-  minus.innerText = "−"; // Minus sign, not ASCII
-  minus.onclick = () => --output.value;
-
-  const plus = document.createElement("button");
-  plus.className = "tally-button plus";
-  plus.innerText = "+";
-  plus.onclick = () => ++output.value;
-
-  const reset = document.createElement("button");
-  reset.className = "tally-button reset";
-  reset.innerText = "Reset";
-  reset.onclick = () => output.value = 0;
-
-  const root = document.createElement("div");
-  root.className = "tally";
-  root.appendChild(name);
-  root.appendChild(output);
-  root.appendChild(minus);
-  root.appendChild(plus);
-  root.appendChild(reset);
-
-  const close = document.createElement("button");
-  close.innerHTML = "❌&#xFE0E;";
-  close.className = "close-button";
-  close.title = "Remove timer";
-  close.onclick = () => root.parentNode.removeChild(root);
-  root.appendChild(close);
-
-  fontLoad && fontLoad.then(value => {
-    const lcdEffect = document.createElement("span");
-    lcdEffect.className = "lcd-effect";
-    root.insertBefore(lcdEffect, root.firstChild);
-  })
-
-  return root;
+function enableButton(button, action) {
+  button.onclick = action;
+  button.disabled = false;
 }
 
-const button = document.createElement("button");
-button.className = "add-button";
-button.innerText = "+";
-button.title = "Add new timer";
-button.onclick = _ => button.parentNode.insertBefore(createTally(), button);
-document.body.appendChild(button);
-button.parentNode.insertBefore(createTally(), button)
+function initTally(tally) {
+  tally.querySelector(".tally-name").value = "Tally " + ++numTallies;
+
+  const counter = tally.querySelector(".tally-box");
+  enableButton(tally.querySelector(".minus"), () => --counter.value);
+  enableButton(tally.querySelector(".plus"), () => ++counter.value);
+  enableButton(tally.querySelector(".reset"), () => counter.value = 0);
+
+  enableButton(tally.querySelector(".close-button"), () => tally.parentNode.removeChild(tally));
+
+  fontLoad && !document.querySelector(".lcd-effect") && fontLoad.then(() => {
+    const lcdEffect = document.createElement("span");
+    lcdEffect.className = "lcd-effect";
+    tally.appendChild(lcdEffect);
+  });
+
+  return tally;
+}
+
+const template = document.querySelector(".tally");
+initTally(template);
+
+enableButton(document.querySelector("#create"), function() {
+  const clone = template.cloneNode(true);
+  initTally(clone);
+  this.parentNode.insertBefore(clone, this);
+});
