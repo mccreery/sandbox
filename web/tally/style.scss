@@ -86,7 +86,9 @@ body {
   border: 1px solid #aaa;
 
   background: none;
+}
 
+.plain-number {
   // Hide spinner arrows
   -moz-appearance: textfield;
   &::-webkit-inner-spin-button {

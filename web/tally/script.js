@@ -12,6 +12,9 @@ function initTally(tally) {
   tally.querySelector(".tally-name").value = "Tally " + ++numTallies;
 
   const counter = tally.querySelector(".tally-box");
+  // Only hide arrows when JS is enabled
+  counter.classList.add("plain-number");
+
   enableButton(tally.querySelector(".minus"), () => --counter.value);
   enableButton(tally.querySelector(".plus"), () => ++counter.value);
   enableButton(tally.querySelector(".reset"), () => counter.value = 0);
