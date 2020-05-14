@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Preference Toggle</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>CSS-Only Content Switch</h1>
+        <p id="updated">Updated 2020-05-13 by Sam McCreery</p>
+        <nav id="crumbs"><a href="/">Home</a> / <a href="/lab">Lab</a> / <a>CSS-Only Content Switch</a></nav>
+      </header>
+
+      <input id="js" name="shell" type="radio" checked><label for="js">JavaScript</label>
+      <input id="py" name="shell" type="radio"><label for="py">Python</label>
+      <input id="lua" name="shell" type="radio"><label for="lua">Lua</label>
+
+      <div id="content">
+        <pre class="js-only"><code>function foo() {
+  console.log("bar");
+}</code></pre>
+        <pre class="py-only"><code>def foo():
+  print("bar")</code></pre>
+        <pre class="lua-only"><code>function foo()
+  print "bar"
+end</code></pre>
+
+        <p>Select a radio button. Only the code sample written in the corresponding language will be visible. This page has no JavaScript, though. How does it work?</p>
+
+        <p>Doing it in CSS has its challenges:</p>
+
+        <ul>
+          <li>CSS combinators can’t move backwards up the DOM tree</li>
+          <li><code>&lt;input&gt;</code> elements don’t allow children</li>
+        </ul>
+
+        <p>The trick is the <strong>sibling combinator</strong>, <code>~</code>. Unlike most combinators, <code>~</code> moves <em>sideways</em>. Just nest the content you want to switch inside a sibling of the radio buttons:</p>
+
+        <pre><code>&lt;input id="js" name="shell" type="radio"&gt;
+&lt;input id="py" name="shell" type="radio"&gt;
+&lt;input id="lua" name="shell" type="radio"&gt;
+&lt;div id="content"&gt;
+  &lt;span class="js-only"&gt;Too many braces!&lt;/span&gt;
+  &lt;span class="py-only"&gt;Too much indentation!&lt;/span&gt;
+  &lt;span class="lua-only"&gt;Just right.&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+        <p>Then select using <code>~</code>:</p>
+
+        <pre><code>#js:not(:checked) ~ #content .js-only,
+#py:not(:checked) ~ #content .py-only,
+#lua:not(:checked) ~ #content .lua-only {
+  display: none;
+}</code></pre>
+
+        <p>This technique is limited. All it can do is move sideways then down the tree, starting from the radio button. You can’t add a wrapper element around the radio buttons, because then the only way to reach the target would be to move backwards up the tree.</p>
+
+        <p>In particular, you can’t nest your <code>&lt;input&gt;</code>s inside their <code>&lt;label&gt;</code>s. If your screen is just narrow enough, you might find that one of the labels above wraps onto a new line without its radio button.</p>
+      </div>
+    </article>
+  </body>
+</html>
