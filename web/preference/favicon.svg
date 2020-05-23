@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+  <text
+    x = "8"
+    y = "16"
+    text-anchor="middle"
+    font-size="18pt"
+    font-family="Times New Roman"
+    text-rendering="optimizeLegibility"
+  >
+    S
+  </text>
+</svg>
