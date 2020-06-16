@@ -1,0 +1,15 @@
+{
+  "name": "pages",
+  "type": "module",
+  "bin": {
+    "pages": "pages.mjs"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "commonmark": "^0.29.1",
+    "htmlparser2": "^4.1.0",
+    "parse5": "^6.0.0",
+    "parse5-html-rewriting-stream": "^6.0.0",
+    "prettier": "^2.0.5"
+  }
+}

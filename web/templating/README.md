@@ -1,0 +1,33 @@
+# Dead Simple HTML Templating
+## Approach Comparison
+
+- [JSDom](https://github.com/jsdom/jsdom):
+  - Pro: standard DOM API
+  - Con: overkill
+  - Con: Slower than Cheerio
+- [Cheerio](https://cheerio.js.org/):
+  - Pro: JQuery API
+  - Con: overkill
+  - Con: https://github.com/cheeriojs/cheerio/issues/1198
+  - Con: dependency parse5 slower than htmlparser2
+  - Con: added nodes aren't indented
+    - Beautifier/Prettier: overkill and messes with line breaks
+- [htmlparser2](https://github.com/fb55/htmlparser2)
+  - Pro: lightweight streaming parser
+  - Pro: can process whitespace between nodes
+  - Con: underkill, too much manual work keeping track of file
+  - Con: doesn't produce any output on its own
+- [parse5](https://github.com/inikulin/parse5/blob/master/packages/parse5/docs/index.md)
+  - Pro: serializer
+  - Pro: can work with multiple DOM tree impls
+  - Con: default tree adapter has limited manipulation
+  - Con: slower than htmlparser2
+- parse5-html-rewriting-stream
+  - Pro: streaming, like htmlparser2
+  - Pro: designed for rewriting HTML
+  - Pro: ignored nodes are passed through untouched
+  - Con: no CSS selectors or JQuery
+  - Con: indentation is still manual
+- [LOL HTML](https://github.com/cloudflare/lol-html)
+  - Pro: use CSS selectors for manipulation
+  - Con: Rust
