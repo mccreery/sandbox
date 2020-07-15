@@ -1,0 +1,48 @@
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.button {
+  display: block;
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  width: 64px;
+  height: 64px;
+  background: rgba(0,0,0,.2);
+  border: 2px solid rgba(0,0,0,.5);
+  border-radius: 5px;
+  line-height: 64px;
+  text-align: center;
+  font-size: 32px;
+  font-family: Roboto, sans-serif;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+  box-shadow: 0 -8px 0 rgba(0,0,0,.1) inset;
+  padding-bottom: 8px;
+  transition: margin .05s, padding .05s;
+}
+
+.pressed {
+  background: rgba(0,0,0,.3);
+  margin-top: 8px;
+  padding-bottom: 0px;
+  box-shadow: none;
+}
+
+#scroll {
+  background: rgba(0,0,0,.1) linear-gradient(rgba(0,0,0,.1) 8px, #fff 8px, #fff 10px, rgba(0,0,0,.1) 10px) 0 -5px repeat-y;
+  background-size: 100% 10px;
+}
+
+#scroll.scrolling {
+  animation: scroll 0.05s linear infinite;
+}
+
+@keyframes scroll {
+  from {background-position: 0 -5px;}
+  to {background-position: 0 -15px;}
+}
