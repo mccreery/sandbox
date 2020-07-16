@@ -128,6 +128,8 @@ function formatTimer(seconds, minParts = 2, leadingZero = false) {
 
 const params = getURLParams();
 const timer = document.getElementById("timer");
+// TODO temp
+params.time = "16:00"
 const end = getDate(params.time);
 
 setInterval(() => {
@@ -139,3 +141,20 @@ setInterval(() => {
   }
   fitElement(timer);
 }, 100);
+
+const lightbox = document.getElementById("lightbox");
+lightbox.style.visibility = "hidden";
+
+document.onkeydown = event => {
+  console.log(event);
+
+  if (event.key === "?") {
+    if (lightbox.style.visibility === "hidden") {
+      lightbox.style.visibility = "visible";
+    } else {
+      lightbox.style.visibility = "hidden";
+    }
+  } else {
+    lightbox.style.visibility = "hidden";
+  }
+};
