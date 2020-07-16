@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>LiveSplit splits to YouTube cue list converter</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="script.js"></script>
+  </head>
+  <body>
+    <div>
+      <label>
+        Splits
+        <ul>
+          <li>In LiveSplit, open Splits Editor
+          <li>Select the Real Time tab
+          <li>Click anywhere in the table and press CTRL+A to select all
+          <li>Press CTRL+C to copy and CTRL+V to paste in the box below.
+        </ul>
+        <textarea id="splits"></textarea>
+      </label>
+      <label>
+        <p>
+          Offset<br>
+          This is the time in the video the run started.
+        </p>
+        <input type="number" id="offset" value="0"> seconds
+      </label>
+      <label>
+        <p>Timestamps</p>
+        <textarea id="timestamps" readonly></textarea>
+      </label>
+    </div>
+  </body>
+</html>
