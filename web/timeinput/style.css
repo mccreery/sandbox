@@ -1,0 +1,49 @@
+@font-face {
+  font-family: DSEG7;
+  font-style: italic;
+  font-weight: bold;
+  src: url(DSEG7Classic-BoldItalic.woff2);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 100pt;
+  font-family: DSEG7;
+  text-align: right;
+}
+
+input {
+  /* Ta-da! */
+  all: unset;
+}
+
+#input, #dots {
+  padding: .3em;
+  width: 8ch;
+}
+
+#input {
+  position: relative;
+}
+
+#input:focus {
+  border: 1px solid #ddd;
+}
+
+#dots {
+  position: absolute;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+#dots.show {
+  visibility: visible;
+}
