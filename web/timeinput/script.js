@@ -96,7 +96,7 @@ function ungroupUnits(groups, groupSizes) {
 
 let endDate = null;
 function startTimer() {
-  const groups = input.value.split(":").reverse().map(x => parseInt(x));
+  const groups = input.value.split(":").reverse().map(x => parseInt(x) || 0);
   const seconds = ungroupUnits(groups, [60, 60]);
 
   endDate = new Date();
@@ -121,10 +121,16 @@ setInterval(() => {
       seconds = Math.round((endDate - new Date()) / 1000);
     }
 
-    input.value = groupUnits(seconds, [60, 60])
-      .reverse()
-      .map(group => group.toString().padStart(2, "0"))
-      .join(":");
+    let groups = groupUnits(seconds, [60, 60]);
+    while (groups.length < 2) {
+      groups.push(0);
+    }
+    groups = groups.reverse();
+
+    for (let i = 1; i < groups.length; i++) {
+      groups[i] = groups[i].toString().padStart(2, "0");
+    }
+    input.value = groups.join(":");
   }
 }, 50);
 
