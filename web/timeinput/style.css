@@ -12,12 +12,17 @@ html, body {
 
 body {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
   font-size: 100pt;
   font-family: DSEG7;
   text-align: right;
+}
+
+#largebox {
+  position: relative;
 }
 
 input {
@@ -27,11 +32,7 @@ input {
 
 #input, #dots {
   padding: .3em;
-  width: 8ch;
-}
-
-#input {
-  position: relative;
+  width: 50rem;
 }
 
 #input:focus {
@@ -40,10 +41,20 @@ input {
 
 #dots {
   position: absolute;
+  top: 0;
+  left: 0;
   pointer-events: none;
   visibility: hidden;
+  border: 1px solid transparent;
 }
 
 #dots.show {
   visibility: visible;
+}
+
+#caption {
+  font-family: arial, sans-serif;
+  font-size: 20pt;
+  width: 50rem;
+  text-align: center;
 }
