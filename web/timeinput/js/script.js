@@ -5,24 +5,18 @@ import chunk from "./chunk.js";
 const input = document.getElementById("input");
 const dots = document.getElementById("dots");
 
-function updateDots() {
-  // dot then two "all off" characters
+function cleanInput() {
+  inputs.replace(input, /[^\d]+/g, "");
   dots.value = ".!!".repeat(Math.min(2, (input.value.length - 1) / 2));
 }
 
-input.addEventListener("input", () => {
-  inputs.replace(input, /[^\d]+/g, "");
-  updateDots();
-});
-
 input.addEventListener("focus", () => {
   stopTimer();
-  input.selectionStart = 0;
-  input.selectionEnd = input.value.length;
-  inputs.replace(input, /[^\d]+/g, "");
-  updateDots();
+  cleanInput();
   dots.classList.add("show");
 });
+
+input.addEventListener("input", cleanInput);
 
 input.addEventListener("blur", () => {
   dots.classList.remove("show");
@@ -30,6 +24,8 @@ input.addEventListener("blur", () => {
   input.value = chunk(input.value, 2, {
     reverse: true, max: 2, tail: true
   }).reverse().join(":");
+
+  startTimer();
 });
 
 let endDate = null;
@@ -72,22 +68,13 @@ setInterval(() => {
   }
 }, 50);
 
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    e.stopPropagation();
-    input.blur();
-    startTimer();
-  }
-})
-
 document.addEventListener("keydown", e => {
-  if (e.key === " ") {
-    if (endDate) {
-      stopTimer();
+  if (e.key === "Enter") {
+    if (document.activeElement === input) {
+      input.blur();
     } else {
-      startTimer();
+      input.focus();
+      input.select();
     }
-  } else if (e.key === "Enter") {
-    input.focus();
   }
 });
