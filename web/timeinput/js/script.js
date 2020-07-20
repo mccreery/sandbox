@@ -1,10 +1,11 @@
-import * as timer from "./timer.js";
 import * as units from "./units.js";
 import * as inputs from "./inputs.js";
+import Timer from "./timer.js";
 import chunk from "./chunk.js";
 
 const input = document.getElementById("input");
 const dots = document.getElementById("dots");
+const timer = new Timer();
 
 function formatTime(seconds) {
   let groups = units.group(seconds, [60, 60]);
@@ -65,9 +66,9 @@ document.addEventListener("keydown", e => {
   }
 });
 
-document.addEventListener("timer", e => {
-  input.value = formatTime(e.detail);
-});
+timer.addListener(timer => {
+  input.value = formatTime(timer.remaining);
+})
 
 input.focus();
 input.select();
