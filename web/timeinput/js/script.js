@@ -58,7 +58,7 @@ document.addEventListener("keydown", e => {
     input.focus();
     input.select();
   } else if (e.key === " ") {
-    if (timer.running()) {
+    if (timer.running) {
       timer.stop();
     } else {
       timer.start(inverseFormatTime(input.value));
