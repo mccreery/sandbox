@@ -60,7 +60,7 @@ document.addEventListener("keydown", e => {
     if (timer.running()) {
       timer.stop();
     } else {
-      timer.start();
+      timer.start(inverseFormatTime(input.value));
     }
   }
 });
