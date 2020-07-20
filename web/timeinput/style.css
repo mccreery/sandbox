@@ -33,10 +33,11 @@ input {
 #input, #dots {
   padding: .3em;
   width: 50rem;
+  border: 1px solid transparent;
 }
 
 #input:focus {
-  border: 1px solid #ddd;
+  border-color: #ddd;
 }
 
 #dots {
@@ -45,7 +46,6 @@ input {
   left: 0;
   pointer-events: none;
   visibility: hidden;
-  border: 1px solid transparent;
 }
 
 #dots.show {
