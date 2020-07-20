@@ -2,8 +2,11 @@ import * as units from "./units.js";
 import * as inputs from "./inputs.js";
 import chunk from "./chunk.js";
 
+window.chunk = chunk;
+
 const input = document.getElementById("input");
 const dots = document.getElementById("dots");
+let endDate = null;
 
 function cleanInput() {
   inputs.replace(input, /[^\d]+/g, "");
@@ -11,35 +14,21 @@ function cleanInput() {
 }
 
 input.addEventListener("focus", () => {
-  stopTimer();
+  endDate = null;
   cleanInput();
-  dots.classList.add("show");
 });
 
 input.addEventListener("input", cleanInput);
 
 input.addEventListener("blur", () => {
-  dots.classList.remove("show");
-
-  input.value = chunk(input.value, 2, {
+  const groups = chunk(input.value, 2, {
     reverse: true, max: 2, tail: true
-  }).reverse().join(":");
+  }).map(x => parseInt(x));
 
-  startTimer();
-});
-
-let endDate = null;
-function startTimer() {
-  const groups = input.value.split(":").reverse().map(x => parseInt(x) || 0);
   const seconds = units.ungroup(groups, [60, 60]);
-
   endDate = new Date();
   endDate.setTime(endDate.getTime() + seconds * 1000);
-}
-
-function stopTimer() {
-  endDate = null;
-}
+});
 
 setInterval(() => {
   if (endDate) {

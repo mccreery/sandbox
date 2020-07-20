@@ -48,7 +48,7 @@ input {
   visibility: hidden;
 }
 
-#dots.show {
+#input:focus + #dots {
   visibility: visible;
 }
 
