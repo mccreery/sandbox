@@ -39,17 +39,14 @@ function startTimer() {
 
 function stopTimer() {
   endDate = null;
-  expired = false;
 }
 
-let expired = false;
 setInterval(() => {
   if (endDate) {
     const now = new Date();
-    expired = now >= endDate;
 
     let seconds;
-    if (expired) {
+    if (now >= endDate) {
       seconds = 0;
     } else {
       seconds = Math.round((endDate - new Date()) / 1000);
