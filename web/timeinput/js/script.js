@@ -1,21 +1,10 @@
+import * as timer from "./timer.js";
 import * as units from "./units.js";
 import * as inputs from "./inputs.js";
 import chunk from "./chunk.js";
 
-window.chunk = chunk;
-
 const input = document.getElementById("input");
 const dots = document.getElementById("dots");
-
-let endDate = null;
-function startTimer(seconds) {
-  endDate = new Date();
-  endDate.setTime(endDate.getTime() + seconds * 1000);
-}
-
-function stopTimer() {
-  endDate = null;
-}
 
 function formatTime(seconds) {
   let groups = units.group(seconds, [60, 60]);
@@ -35,27 +24,13 @@ function inverseFormatTime(time) {
   return units.ungroup(groups, [60, 60]);
 }
 
-setInterval(() => {
-  if (endDate) {
-    const now = new Date();
-
-    let seconds;
-    if (now >= endDate) {
-      seconds = 0;
-    } else {
-      seconds = Math.round((endDate - new Date()) / 1000);
-    }
-    input.value = formatTime(seconds);
-  }
-}, 50);
-
 function cleanInput() {
   inputs.replace(input, /[^\d]+/g, "");
   dots.value = ".!!".repeat(Math.min(2, (input.value.length - 1) / 2));
 }
 
 input.addEventListener("focus", () => {
-  stopTimer();
+  timer.stop();
   cleanInput();
 });
 input.addEventListener("input", cleanInput);
@@ -69,16 +44,29 @@ input.addEventListener("blur", () => {
   input.value = formatTime(seconds);
 });
 
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    e.stopPropagation();
+    input.blur();
+    timer.start(inverseFormatTime(input.value));
+  }
+});
+
 document.addEventListener("keydown", e => {
   if (e.key === "Enter") {
-    if (document.activeElement === input) {
-      input.blur();
-      startTimer(inverseFormatTime(input.value));
+    input.focus();
+    input.select();
+  } else if (e.key === " ") {
+    if (timer.running()) {
+      timer.stop();
     } else {
-      input.focus();
-      input.select();
+      timer.start();
     }
   }
+});
+
+document.addEventListener("timer", e => {
+  input.value = formatTime(e.detail);
 });
 
 input.focus();
