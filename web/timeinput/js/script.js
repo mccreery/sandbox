@@ -64,3 +64,6 @@ document.addEventListener("keydown", e => {
     }
   }
 });
+
+input.focus();
+input.select();
