@@ -1,13 +1,14 @@
 package adventure;
 
 import adventure.glot.Glot;
+import adventure.item.Item;
 
-public class Stack<T extends INamed> {
-    private final T t;
+public class Stack {
+    private final Item item;
     private final int count;
 
-    public Stack(T t, int count) {
-        this.t = t;
+    public Stack(Item item, int count) {
+        this.item = item;
 
         if (count <= 0) {
             throw new IllegalArgumentException("Count must be positive");
@@ -16,6 +17,6 @@ public class Stack<T extends INamed> {
     }
 
     public String getDescription(Glot glot) {
-        return glot.localize(t.getNameKey(), count);
+        return glot.localize(item.getNameKey(), count);
     }
 }
