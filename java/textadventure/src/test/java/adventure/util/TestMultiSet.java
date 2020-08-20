@@ -30,14 +30,14 @@ public class TestMultiSet {
 
     @Test
     public void empty() {
-        Multiset<?> set = new Multiset<>();
+        HashMultiset<?> set = new HashMultiset<>();
         assertTrue(set.isEmpty());
         assertTrue(set.size() == 0);
     }
 
     @Test
     public void add() {
-        Multiset<Object> set = new Multiset<>();
+        HashMultiset<Object> set = new HashMultiset<>();
         Object element = new Object();
 
         for (int i = 0; i < 10; i++) {
@@ -49,13 +49,13 @@ public class TestMultiSet {
 
     @Test
     public void emptyIterator() {
-        Multiset<Object> set = new Multiset<>();
+        HashMultiset<Object> set = new HashMultiset<>();
         assertTrue(!set.iterator().hasNext());
     }
 
     @Test
     public void iteratorLength() {
-        Multiset<Integer> set = new Multiset<>();
+        HashMultiset<Integer> set = new HashMultiset<>();
         for (int i = 0; i < 10; i++) {
             set.add(i);
             set.add(i);
@@ -79,7 +79,7 @@ public class TestMultiSet {
 
     @Test
     public void iteratorValues() {
-        Multiset<Integer> set = new Multiset<>(sortedRandomList);
+        HashMultiset<Integer> set = new HashMultiset<>(sortedRandomList);
 
         List<Integer> sortedSetList = new ArrayList<>(set);
         Collections.sort(sortedSetList);
@@ -89,7 +89,7 @@ public class TestMultiSet {
 
     @Test
     public void iteratorRemove() {
-        Multiset<Integer> set = new Multiset<>(sortedRandomList);
+        HashMultiset<Integer> set = new HashMultiset<>(sortedRandomList);
 
         sortedRandomList.removeIf(x -> x < 5);
         set.removeIf(x -> x < 5);
@@ -102,7 +102,7 @@ public class TestMultiSet {
 
     @Test
     public void removeAll() {
-        Multiset<Integer> set = new Multiset<>(sortedRandomList);
+        HashMultiset<Integer> set = new HashMultiset<>(sortedRandomList);
 
         while (sortedRandomList.remove((Integer)3)) ;
         set.removeAll(3);
@@ -112,7 +112,7 @@ public class TestMultiSet {
 
     @Test
     public void containsRemove() {
-        Multiset<Integer> set = new Multiset<>(sortedRandomList);
+        HashMultiset<Integer> set = new HashMultiset<>(sortedRandomList);
         assertTrue(!set.contains(10));
 
         final Integer element = 3;
@@ -132,7 +132,7 @@ public class TestMultiSet {
 
     @Test
     public void clear() {
-        Multiset<Integer> set = new Multiset<>(sortedRandomList);
+        HashMultiset<Integer> set = new HashMultiset<>(sortedRandomList);
         set.clear();
         assertTrue(set.isEmpty());
     }
