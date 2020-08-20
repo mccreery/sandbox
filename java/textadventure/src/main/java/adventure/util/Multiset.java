@@ -8,20 +8,10 @@ public interface Multiset<T> extends Collection<T> {
      */
     int getCount(Object element);
 
-    @Override
-    default boolean add(T e) {
-        return add(e, 1);
-    }
-
     /**
      * @return {@code true} if the elements were added.
      */
     boolean add(T element, int count);
-
-    @Override
-    default boolean remove(Object o) {
-        return remove(o, 1);
-    }
 
     /**
      * Removes a number of elements, only if there at least that many.

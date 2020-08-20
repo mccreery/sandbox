@@ -68,10 +68,20 @@ public class HashMultiset<T> extends AbstractCollection<T> implements Multiset<T
     }
 
     @Override
+    public boolean add(T element) {
+        return add(element, 1);
+    }
+
+    @Override
     public boolean add(T element, int count) {
         elements.merge(element, count, (a, b) -> a + b);
         size += count;
         return true;
+    }
+
+    @Override
+    public boolean remove(Object element) {
+        return remove(element, 1);
     }
 
     @Override
