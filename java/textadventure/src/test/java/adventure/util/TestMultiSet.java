@@ -129,4 +129,11 @@ public class TestMultiSet {
 
         assertTrue(!set.contains(10));
     }
+
+    @Test
+    public void clear() {
+        Multiset<Integer> set = new Multiset<>(sortedRandomList);
+        set.clear();
+        assertTrue(set.isEmpty());
+    }
 }
