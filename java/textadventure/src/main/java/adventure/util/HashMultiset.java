@@ -90,14 +90,14 @@ public class HashMultiset<T> extends AbstractCollection<T> implements Multiset<T
 
     /**
      * Removes all instances of the specified element from the set.
-     * @return {@code true} if any elements were removed.
+     * @return The number of elements removed.
      */
     public int removeAll(Object element) {
         Integer count = elements.remove(element);
 
         if (count != null) {
             size -= count;
-            return size;
+            return count;
         } else {
             return 0;
         }
