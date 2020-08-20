@@ -86,9 +86,9 @@ public class HashMultiset<T> extends AbstractCollection<T> implements Multiset<T
 
     @Override
     public boolean remove(Object element, int count) {
-        int storedCount = elements.get(element);
+        Integer storedCount = elements.get(element);
 
-        if (storedCount < count) {
+        if (storedCount == null || storedCount < count) {
             return false;
         } else if (storedCount == count) {
             elements.remove(element);
