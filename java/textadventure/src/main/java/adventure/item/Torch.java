@@ -1,7 +1,5 @@
 package adventure.item;
 
-import adventure.Items;
-
 public class Torch extends Item {
     private boolean lit;
 
@@ -12,8 +10,8 @@ public class Torch extends Item {
 
     @Override
     protected Item combine(Item item) {
-        if (!lit && item == Items.FLINT) {
-            return Items.LIT_TORCH;
+        if (!lit && item == Item.FLINT) {
+            return Item.LIT_TORCH;
         } else {
             return null;
         }

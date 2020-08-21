@@ -3,6 +3,10 @@ package adventure.item;
 import adventure.INamed;
 
 public class Item implements INamed {
+    public static final Item LIT_TORCH = new Torch(true);
+	public static final Item UNLIT_TORCH = new Torch(false);
+    public static final Item FLINT = new Item("flint");
+
     private final String nameKey;
 
     public Item(String nameKey) {
