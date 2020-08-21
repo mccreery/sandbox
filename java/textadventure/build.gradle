@@ -3,11 +3,18 @@ plugins {
     id 'application'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_9
+    targetCompatibility = JavaVersion.VERSION_1_9
+    modularity.inferModulePath = true
+}
+
 repositories {
     mavenCentral()
 }
 
 application {
+    mainModule = 'adventure'
     mainClass = 'adventure.Main'
 }
 
