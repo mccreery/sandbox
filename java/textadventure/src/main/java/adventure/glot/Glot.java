@@ -7,7 +7,6 @@ import java.util.stream.StreamSupport;
 
 public final class Glot {
     private final ResourceBundle resourceBundle;
-    private final FunctionCache<String, MessageFormat> formatCache = new FunctionCache<>(MessageFormat::new);
 
     public Glot(ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
@@ -18,7 +17,7 @@ public final class Glot {
     }
 
     public String localize(String key, Object... arguments) {
-        return formatCache.get(resourceBundle.getString(key)).format(arguments);
+        return MessageFormat.format(resourceBundle.getString(key), arguments);
     }
 
     public String localize(String key, Iterable<?> arguments) {
