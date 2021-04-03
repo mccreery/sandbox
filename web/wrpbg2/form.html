@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WR/PB Grabber</title>
+    <script src="js/form.js" type="module"></script>
+  </head>
+  <body>
+    <form id="form">
+      <datalist id="games"></datalist>
+      <label>
+        Game:
+        <input id="game" type="text" autocomplete list="games" placeholder="e.g. Portal, 4pd0n31e">
+      </label>
+      <label>
+        Category:
+        <select id="category" disabled></select>
+      </label>
+      <input type="submit" value="Generate URL">
+      <input id="gameid" name="game" hidden>
+      <input id="categoryid" name="category" hidden>
+    </form>
+    <a id="url"></a>
+  </body>
+</html>

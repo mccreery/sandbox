@@ -1,0 +1,42 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: rgba(0, 0, 0, 0);
+  font-family: arial, sans-serif;
+  font-size: 28px;
+  text-shadow: 0 0 4px black;
+  color: white;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#wr .time {
+  color: #d353ef;
+  animation: rainbow 20s infinite linear;
+}
+#pb .time {color: #16A6FF}
+
+@keyframes rainbow {
+  0%   {color: #d353ef}
+  20%  {color: #fcff70}
+  40%  {color: #ef4628}
+  60%  {color: #85ed3b}
+  80%  {color: #428aff}
+  100% {color: #d353ef}
+}
+
+#portals {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 64px;
+  border-left: 3px solid #FE6A00;
+  border-right: 3px solid #00ADEF;
+  box-sizing: border-box;
+  box-shadow: 96px 0 64px -98px #FE6A00 inset, -96px 0 64px -98px #00ADEF inset;
+}
