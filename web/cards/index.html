@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1>Lab</h1>
+      <ul id="cards">
+        <li class="card clickable">
+          <img class="card-image" src="https://via.placeholder.com/480x360" width="200">
+          <h2><a href="" class="card-link">JavaScript</a></h2>
+          <p>This one uses JavaScript to make the whole thing clickable, but really only the title is a link.</p>
+          <p>The description does not show a link preview, and you cannot open in a new tab from the description (ctrl+click, middle click or right click).</p>
+        </li>
+        <li>
+          <a class="card clickable" href="">
+            <img class="card-image" src="https://via.placeholder.com/480x360" width="200">
+            <h2>CSS Only</h2>
+            <p>This one has the whole thing as a link.</p>
+            <p>Screen readers will read this entire text before announcing the link. The text can only be selected by holding alt. There is no way to drag the image. It's impossible to nest links.</p>
+          </a>
+        </li>
+        <li>
+          <a class="card clickable" href="" aria-labelledby="css-aria" aria-describedby="css-aria-description">
+            <img class="card-image" src="https://via.placeholder.com/480x360" width="200">
+            <h2 id="css-aria">CSS + ARIA</h2>
+            <div id="css-aria-description">
+              <p>This one is very similar to "CSS Only," except it defines some ARIA attributes which help identify the label and the description.</p>
+              <p>Whether or not it works is complicated.</p>
+            </div>
+          </a>
+        </li>
+        <li class="card clickable noselect">
+          <img class="card-image" src="https://via.placeholder.com/480x360" width="200">
+          <h2><a href="" class="expand">Pseudo-element Trick</a></h2>
+          <p>This one expands its link over the full parent.</p>
+          <p>In Chrome, it at first appears possible to select text by holding alt, but only the cursor changes. Nothing can be selected.</p>
+          <p>It's possible to have nested links using <a href="#small-link" class="small-link"><code>position: relative</code></a>.</p>
+        </li>
+        <li class="card">
+          <a href="" class="block">
+            <img class="card-image" src="https://via.placeholder.com/480x360" width="200">
+            <h2>Compromise</h2>
+          </a>
+          <p>This one links around the image and the title only, which preserves the majority of the clickable area.</p>
+          <p>On Chrome the title is not draggable.</p>
+        </li>
+        <li class="card">
+          <div class="relative">
+            <img class="card-image" src="https://via.placeholder.com/480x360" width="200">
+            <h2><a href="" class="expand">Compromise 2</a></h2>
+          </div>
+          <p>This one has its link inside the title only, which is more semantically correct. It has a pseudo-element covering the (container of) the image and the title, but not this paragraph (which is selectable as normal).</p>
+          <p>Users could easily click here thinking it would work, though.</p>
+        </li>
+        <p>This last one is a little special, because it only includes an image and a title. In this case, the tree can go <code>h2 > a > img</code> without much trouble since <code>img</code> is naturally an inline element and won't show up on screen readers.</p>
+        <p>The margins would have to be considered for this one. Flexbox could also be used to switch the order of the text and the image, and it's all part of an h2 so it should all look correct.</p>
+        <li>
+          <h2>
+            <a href="" class="card">
+              <img class="card-image" src="https://via.placeholder.com/480x360" width="200">
+              Final Option
+            </a>
+          </h2>
+        </li>
+        <p>The description could go here if necessary without much loss. It would have to have some way to avoid breaking onto the next column, like a wrapper.</p>
+      </ul>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+body {
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+}
+
+p, h1, h2, h3, h4, h5, h6, .card-image {
+  margin: 1rem 0;
+}
+
+#cards {
+  columns: 3 20rem;
+  column-gap: 1rem;
+  list-style-type: none;
+  padding: 0;
+}
+
+#cards > * {
+  margin: 1rem 0;
+}
+
+/* First child in first child doesn't collapse margins */
+#cards > :first-child {
+  margin-top: 0;
+}
+
+.card {
+  /* Prevent column breaks inside */
+  break-inside: avoid;
+  display: block;
+
+  border: 1px solid #ddd;
+  padding: 0 1rem;
+  margin: 0;
+  box-sizing: border-box;
+  width: 20rem;
+
+  position: relative;
+}
+
+.card.clickable {
+  cursor: pointer;
+}
+
+/* Remove link styles */
+/* .card a, a.card {
+  color: inherit;
+  text-decoration: inherit;
+  outline: none;
+} */
+
+.expand::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Make it clear you can still click */
+.card.clickable:hover, .card.clickable:focus-within {
+  border-color: black;
+}
+
+.card-image {
+  display: block;
+  width: 100%;
+}
+
+.link2::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.block {
+  display: block;
+}
+
+.small-link {
+  position: relative;
+}
+
+.relative {
+  position: relative;
+}
