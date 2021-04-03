@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # RAM Downloader :^)
 import sys, random, datetime, socket, time
 
@@ -22,18 +23,19 @@ EXTENSIONS = ("dat", "b", "c", "h", "bin", "jar", "bat", "ram", "py", "exe", "ra
 LOG_LEVELS = ("INFO", "WARNING", "ERROR")
 
 INIT_MSG = "Initialising ver. 1.12_w16i1a_dev"
+PAD = " " * 20
 
 def randbool(): return random.random() < 0.5
 
 def log(msg, level=0):
-	print("[STDOUT]\\{{}\\} {}: {}".format(msg, datetime.datetime.now().strftime("%X"), LOG_LEVELS[level]))
+	print("[STDOUT]{{{}}} {}: {}".format(datetime.datetime.now().strftime("%X"), LOG_LEVELS[level], msg))
 
 def filename():
 	name = "".join("_"*randbool() + random.choice(FILE_NAMES) for i in range(random.randint(0, 3)))
 	if randbool():
-		name += randbool()*"_" + random.randint(0, 257)
+		name += randbool()*"_" + str(random.randint(0, 257))
 
-	return ".".join(name, random.choice(EXTENSIONS))
+	return ".".join((name, random.choice(EXTENSIONS)))
 
 def loadBar(current, total):
 	size = int((current / total) * 10)
@@ -50,10 +52,10 @@ ip = socket.gethostbyname(socket.gethostname())
 
 for i in range(4):
 	print(INIT_MSG + "."*i, end="\r")
-	sleep(0.5)
+	time.sleep(0.5)
 
 print("Initialisation complete.".ljust(len(INIT_MSG)+3))
-sleep(1)
+time.sleep(1)
 print("Pushing changes to disk... This may take several minutes.")
 
 path = PATHS[0]
@@ -78,7 +80,7 @@ for i in range(op_count):
 		print("End of directory.", "-" * 40)
 		print("Creating diretory " + path + "\\" + random.choice(FOLDERS))
 
-	if random.random() < 0.1: path = random.choice(paths)
+	if random.random() < 0.1: path = random.choice(PATHS)
 	if random.random() < 0.05:
 		log(random.choice(EXCEPTIONS), 2)
 		log("If this error occurs more than ten times, the operation may fail.")
@@ -87,7 +89,7 @@ for i in range(op_count):
 			print("Bit check:")
 			for b in range(random.randint(1, 10)):
 				print(randbool(), end="\r" if randbool() else "\n")
-				sleep(0.1)
+				time.sleep(0.1)
 			log("Error has been resolved.")
 
 		log("Excessive errors may cause problems, but should be expected with an older system.", 1)
@@ -95,20 +97,20 @@ for i in range(op_count):
 	indent = min(10, max(0, indent + random.randint(-1, 1)))
 
 	# Display completion bar
-	print("%f%% complete (%d out of %d operations). %s" % (int((i / y) * 1000) / 10, i, y, loadBar(i, y) + pad), end="\r")
+	print("%f%% complete (%d out of %d operations). %s" % (int((i / op_count) * 1000) / 10, i, op_count, loadBar(i, op_count) + PAD), end="\r")
 
 	delay = random.random()
-	sleep(delay * delay)
+	time.sleep(delay * delay)
 
 print("Setup complete.".ljust(65))
 
 for i in range(5):
-	print("Localising network connection" + "."*i + pad, end="\r")
-	sleep(random() / 5)
+	print("Localising network connection" + "."*i + PAD, end="\r")
+	time.sleep(random.random() / 5)
 log("Most systems have a maximum memory capability of 16 or 32GB of RAM. Going over this limit could cause instability.")
 
 print("\nTesting network connection...")
-sleep(.5)
+time.sleep(.5)
 
 print("-"*40)
 internet = False
@@ -116,7 +118,7 @@ i = 1
 while not internet:
 	print("Attempting connection (" + str(i) + " tries)")
 	i += 1
-	sleep(random() * 2)
+	time.sleep(random.random() * 2)
 	if randbool():
 		print("Network connection established.")
 		print("-"*40)
@@ -124,15 +126,15 @@ while not internet:
 	else:
 		print("No internet connection is available. You may want to try again in a couple of hours, or contact a network administrator.")
 for i in range(64):
-	print("Pinging data connection to %s (%d out of 64 bytes)%s" % (ip, i, pad), end="\r")
-	sleep(.01)
+	print("Pinging data connection to %s (%d out of 64 bytes)%s" % (ip, i, PAD), end="\r")
+	time.sleep(.01)
 
 print("\n%dms server response.\n" % random.randint(500, 5000))
 
 for message in ["Clearing data cache", "Finalising data transfers", "Resetting current memory", "Scanning system"]:
 	for i in range(4):
-		print(message + "."*i + pad, end="\r")
-		sleep(random())
+		print(message + "."*i + PAD, end="\r")
+		time.sleep(random.random())
 	print()
 
 print("\nReady to begin downloading RAM to the system memory.")
@@ -159,28 +161,28 @@ for i in range(y):
 		print("Byte transfers completed for gigabyte.")
 		for x in range(4):
 			print("Seating module" + ("." * x) + " " * 40, end="\r")
-			sleep(random())
+			time.sleep(random.random())
 		print()
 		for p in range(3):
 			for x in range(4):
 				print("Reseating module" + ("." * x) + " " * 40, end="\r")
-				sleep(random())
+				time.sleep(random.random())
 			print()
 
-	if random() > .9:
-		log(random.choice(exceptionNames)).ljust(65), 2)
+	if random.random() > .9:
+		log(random.choice(EXCEPTIONS).ljust(65), 2)
 		log("If this error occurs more than ten times, the operation may fail.")
 
-	print("%f%% complete (%d out of %d operations). %s" % (int((i / y) * 1000) / 10, i, y, loadBar(i, y) + pad), end="\r")
+	print("%f%% complete (%d out of %d operations). %s" % (int((i / y) * 1000) / 10, i, y, loadBar(i, y) + PAD), end="\r")
 
-	sleep(random() / 200)
-	a = random()
+	time.sleep(random.random() / 200)
+	a = random.random()
 	if a <= .05:
-		sleep(random() / 5)
+		time.sleep(random.random() / 5)
 	elif a >= .95:
-		sleep(random() / 20)
+		time.sleep(random.random() / 20)
 
-	if random() <= .1:
+	if random.random() <= .1:
 		if randbool(): indent += 1
 		else: indent -= 1
 		if indent < 0: indent = 0
@@ -188,9 +190,9 @@ for i in range(y):
 
 print()
 for i in range(4):
-    print("Finalising" + "."*i + pad, end="\r")
-    sleep(random())
+    print("Finalising" + "."*i + PAD, end="\r")
+    time.sleep(random.random())
 print()
 
-print("RAM download complete. Please restart your system." + pad)
+print("RAM download complete. Please restart your system." + PAD)
 input("Press enter to continue...")
