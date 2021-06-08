@@ -1,4 +1,6 @@
-# Sandbox
-Just a place to put random snippets or useless programs. Any language, any purpose goes.
+This is my sandbox, a place for code that isn't substantial enough to live in a
+dedicated project repository. It contains a substantial portion of code from
+some of my oldest projects and learning exercises.
 
-*Nothing in this repo is guaranteed to work in any shape or form. Do **not** expect consistency, comments, maintainable or tested code.*
+If you find something useful here, it is all [Unlicensed](LICENSE). Note however
+that the majority is experimental, untested and undocumented.
