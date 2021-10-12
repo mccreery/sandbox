@@ -85,10 +85,15 @@ let gesture;
 let horizScrollAncestor;
 
 document.addEventListener("touchstart", e => {
-  touchX = e.changedTouches[0].clientX;
-  touchY = e.changedTouches[0].clientY;
-  gesture = gestures.DEFAULT;
-  horizScrollAncestor = getHorizScrollAncestor(e.target);
+  if (e.touches.length > 1) {
+    release(e);
+    gesture = gestures.SCROLL;
+  } else {
+    touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
+    gesture = gestures.DEFAULT;
+    horizScrollAncestor = getHorizScrollAncestor(e.target);
+  }
 });
 
 const minGestureDistance = 20;
@@ -145,7 +150,7 @@ document.addEventListener("touchmove", e => {
   }
 }, { passive: false });
 
-document.addEventListener("touchend", e => {
+function release(e) {
   if (gesture !== gestures.SWIPE) {
     return;
   }
@@ -166,6 +171,10 @@ document.addEventListener("touchend", e => {
   }
 
   sidePanel.release(openFraction);
+}
+
+document.addEventListener("touchend", e => {
+  release(e);
 });
 
 sidePanel.shadowElement.addEventListener("click", () => {
