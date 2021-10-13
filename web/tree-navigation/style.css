@@ -10,18 +10,31 @@ body {
   justify-content: center;
 }
 
-.nav-group {
-  text-transform: uppercase;
+body.sidebar-open {
+  overflow: hidden;
 }
 
-#menu-button {
+pre {
+  overflow: auto;
+}
+
+.button {
   text-transform: uppercase;
-  background: none;
+  background: white;
   border: 1px solid #ddd;
   padding: .5rem 2rem;
 }
 
-#nav {
+.block-placeholder {
+  height: 80vh;
+  background: #eee;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sidebar {
   box-sizing: border-box;
   width: min(20rem, 85vw);
   background: white;
@@ -29,8 +42,9 @@ body {
   min-height: 100vh;
 }
 
-.nav-open body {
-  overflow: hidden;
+.sidebar-heading {
+  font-size: inherit;
+  text-transform: uppercase;
 }
 
 #main {
@@ -41,7 +55,7 @@ body {
 }
 
 @media (max-width: 70rem) {
-  #nav {
+  #sidebar {
     position: fixed;
     height: 100vh;
     overflow: auto;
@@ -52,7 +66,7 @@ body {
     transition: transform;
   }
 
-  #nav-shadow {
+  #sidebar-shadow {
     position: fixed;
     top: 0;
     left: 0;
@@ -65,7 +79,7 @@ body {
     transition: opacity;
   }
 
-  .nav-open #nav-shadow {
+  #sidebar-shadow.sidebar-open {
     pointer-events: auto;
   }
 }

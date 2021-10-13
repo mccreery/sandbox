@@ -18,13 +18,12 @@ function setClass(element, className, enabled) {
   }
 }
 
-class SidePanel {
+class Sidebar {
   constructor(panelElement, shadowElement, transitionDuration) {
     this.panelElement = panelElement;
     this.shadowElement = shadowElement;
-    this._rootElement = panelElement.ownerDocument.documentElement;
-
     this.transitionDuration = transitionDuration;
+
     this._openFraction = 0;
   }
 
@@ -37,7 +36,9 @@ class SidePanel {
 
     this.panelElement.style.transform = `translateX(${(this._openFraction - 1) * 100}%)`;
     this.shadowElement.style.opacity = this._openFraction;
-    setClass(this._rootElement, "nav-open", this._openFraction > 0);
+
+    setClass(this.panelElement.ownerDocument.body, "sidebar-open", this._openFraction > 0);
+    setClass(this.shadowElement, "sidebar-open", this._openFraction > 0);
   }
 
   get clientX() {
@@ -64,7 +65,7 @@ class SidePanel {
   }
 }
 
-const sidePanel = new SidePanel(document.getElementById("nav"), document.getElementById("nav-shadow"), 0.4);
+const sidebar = new Sidebar(document.getElementById("sidebar"), document.getElementById("sidebar-shadow"), 0.4);
 
 const gestures = {
   DEFAULT: 0,
@@ -132,10 +133,10 @@ document.addEventListener("touchmove", e => {
       } else {
         gesture = gestures.SWIPE;
 
-        sidePanel.grab();
+        sidebar.grab();
         slideTime = e.timeStamp;
         slideX = touch.clientX;
-        slideOffsetX = slideX - sidePanel.clientX;
+        slideOffsetX = slideX - sidebar.clientX;
       }
     }
 
@@ -146,7 +147,7 @@ document.addEventListener("touchmove", e => {
 
   if (gesture === gestures.SWIPE) {
     e.preventDefault();
-    sidePanel.clientX = touch.clientX - slideOffsetX;
+    sidebar.clientX = touch.clientX - slideOffsetX;
   }
 }, { passive: false });
 
@@ -164,23 +165,23 @@ function release(e) {
     openFraction = 0;
   } else if (velocity >= minVelocity) {
     openFraction = 1;
-  } else if (sidePanel.openFraction < 0.5) {
+  } else if (sidebar.openFraction < 0.5) {
     openFraction = 0;
   } else {
     openFraction = 1;
   }
 
-  sidePanel.release(openFraction);
+  sidebar.release(openFraction);
 }
 
 document.addEventListener("touchend", e => {
   release(e);
 });
 
-sidePanel.shadowElement.addEventListener("click", () => {
-  sidePanel.release(0);
+sidebar.shadowElement.addEventListener("click", () => {
+  sidebar.release(0);
 });
 
 document.getElementById("menu-button").addEventListener("click", () => {
-  sidePanel.release(1);
+  sidebar.release(1);
 });
